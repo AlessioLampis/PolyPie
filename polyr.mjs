@@ -1,6 +1,5 @@
 var guest1 = document.getElementById("guest1");
 var host1 = document.getElementById("host1");
-
 var sub = 1; //number of tatum (subdivisions)
 
 var guestBeats = [];
