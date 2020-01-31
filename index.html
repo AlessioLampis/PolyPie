@@ -1,0 +1,209 @@
+<!DOCTYPE html> 
+
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="style.css" type="text/css">
+  <title>PolyPie</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.4.84/Tone.js"></script>
+  <div class="cube"><svg version="1.1" xmlns='http://www.w3.org/2000/svg' viewBox="0 250 600 120"
+      preserveAspectRatio="xMidYMid meet">
+      <path class="cube-path"
+        d="M 400 300 A 50 50 0 1 1 200 300 A 50 50 0 1 1 400 300 L 200 300 C 200 300 200 212 298 199 L 300 400 Q 256 399 229 369 L 368 230 Q 428 293 371 370 L 230 234 ">
+      </path>
+    </svg></div>
+  <div class="cube"><svg version="1.1" xmlns='http://www.w3.org/2000/svg' viewBox="0 250 600 120"
+      preserveAspectRatio="xMidYMid meet">
+      <path class="cube-path"
+        d="M 400 300 A 50 50 0 1 1 200 300 A 50 50 0 1 1 400 300 L 200 300 C 200 300 200 212 298 199 L 300 400 Q 256 399 229 369 L 368 230 Q 428 293 371 370 L 230 234 ">
+      </path>
+    </svg></div>
+  <div class="cube"><svg version="1.1" xmlns='http://www.w3.org/2000/svg' viewBox="0 250 600 120"
+      preserveAspectRatio="xMidYMid meet">
+      <path class="cube-path"
+        d="M 400 300 A 50 50 0 1 1 200 300 A 50 50 0 1 1 400 300 L 200 300 C 200 300 200 212 298 199 L 300 400 Q 256 399 229 369 L 368 230 Q 428 293 371 370 L 230 234 ">
+      </path>
+    </svg></div>
+  <div class="cube"><svg version="1.1" xmlns='http://www.w3.org/2000/svg' viewBox="0 250 600 120"
+      preserveAspectRatio="xMidYMid meet">
+      <path class="cube-path"
+        d="M 400 300 A 50 50 0 1 1 200 300 A 50 50 0 1 1 400 300 L 200 300 C 200 300 200 212 298 199 L 300 400 Q 256 399 229 369 L 368 230 Q 428 293 371 370 L 230 234 ">
+      </path>
+    </svg></div>
+  <div class="cube"><svg version="1.1" xmlns='http://www.w3.org/2000/svg' viewBox="0 250 600 120"
+      preserveAspectRatio="xMidYMid meet">
+      <path class="cube-path"
+        d="M 400 300 A 50 50 0 1 1 200 300 A 50 50 0 1 1 400 300 L 200 300 C 200 300 200 212 298 199 L 300 400 Q 256 399 229 369 L 368 230 Q 428 293 371 370 L 230 234 ">
+      </path>
+    </svg></div>
+  <div class="cube"><svg version="1.1" xmlns='http://www.w3.org/2000/svg' viewBox="0 250 600 120"
+      preserveAspectRatio="xMidYMid meet">
+      <path class="cube-path"
+        d="M 400 300 A 50 50 0 1 1 200 300 A 50 50 0 1 1 400 300 L 200 300 C 200 300 200 212 298 199 L 300 400 Q 256 399 229 369 L 368 230 Q 428 293 371 370 L 230 234 ">
+      </path>
+    </svg></div>
+
+  <div id="pages">
+    <div class="firstpage">
+      <span class="firstlogo">PolyPie</span>
+      <p class="firstsub">Visualize complex rhythms with the help of pies</p>
+      <h1 class="firstbtn" id="Start">Start</h1>
+    </div>
+
+
+    <div class="page page1">
+
+      <span class="logo">PolyPie</span>
+      <div style="overflow:auto;">
+        <div style="float:left;">
+          <button type="button" id="LinBtn" class="LinBtn">Cross Rhythm</button>
+          <button type="button" id="IrrBtn" class="IrrBtn">Polymeter</button>
+          <button type="button" id="ClvBtn" class="ClvBtn">Info </button>
+        </div>
+      </div>
+
+
+
+      <div id="snackbarGuest">this is the guest</div>
+      <div id="snackbarHost">this is the host</div>
+      <div id="snackbarTatum">this is the tatum</div>
+      <div class="Quantity">
+        <label>Guest</label>
+        <input type="number" min="1" max="36" id="guest1" step="1" value="1" pattern="[1-8]*">
+        </input>
+      </div>
+
+      <div class="semicolon">:</div>
+
+      <div class="Quantity">
+        <label>Host</label>
+        <input type="number" min="1" max="8" id="host1" step="1" value="1" pattern="[1-8]*"></input>
+      </div>
+      <p>tatum value:</p>
+      <p id="result">1</p>
+      <p id="startbtn">Start</p>
+
+
+
+    </div>
+
+    <div class="page page2">
+      <span class="logo">PolyPie</span>
+      <div style="overflow:auto;">
+        <div style="float:left;">
+          <button type="button" id="LinBtn" class="LinBtn">Cross Rhythm</button>
+          <button type="button" id="IrrBtn" class="IrrBtn">Polymeter</button>
+          <button type="button" id="ClvBtn" class="ClvBtn">Info </button>
+        </div>
+      </div>
+      <label>Guest</label>
+
+      <div class="Quantity">
+        <input type="number" min="1" max="8" id="guest2" step="1" value="1" pattern="[1-8]*">
+        </input>
+      </div>
+
+      <label>Host</label>
+
+      <div class="Quantity">
+        <input type="number" min="4" max="16" id="host2" step="4" value="4" pattern="[4-16]*" disabled="disabled"></input>
+      </div>
+      <span class = "plus" style = "cursor: pointer">+</span>
+       <span class = "minus" style = "cursor: pointer">-</span>
+      
+      <label>Guest</label>
+
+      <div class="Quantity">
+        <input type="number" min="1" max="8" id="guest3" step="1" value="1" pattern="[1-8]*">
+        </input>
+      </div>
+
+      <label>Host</label>
+
+      <div class="Quantity">
+        <input type="number" min="4" max="16" id="host3" step="4" value="4" pattern="[4-16]*" disabled="disabled"></input>
+      </div>
+      <span class = "plus2"  style = "cursor: pointer" >+</span>
+       <span class = "minus2" style = "cursor: pointer">-</span>
+
+      <p id="notation">1</p>
+
+      
+
+
+    </div>
+
+    <div class="page page3">
+      <span class="logo">PolyPie</span>
+      <div style="overflow:auto;">
+        <div style="float:left;">
+          <button type="button" id="LinBtn" class="LinBtn">Cross Rhythm</button>
+          <button type="button" id="IrrBtn" class="IrrBtn">Polymeter</button>
+          <button type="button" id="ClvBtn" class="ClvBtn">Info </button>
+        </div>
+      </div>
+      
+
+
+
+    </div>
+
+    <div class="page page4">
+      <span class="logo">PolyPie</span>
+      <label>Cross rhythm</label>
+      <p id="backbtn">Back</p>
+      <div style="overflow:auto;">
+        <div style="float:left;">
+
+        </div>
+      </div>
+
+    
+     
+
+      <div class="PolymContainer">
+        <canvas width='500' height='500' id='myCanvas'></canvas>
+        <div class = "controller">
+        <div class = "coset_on">coset ON</div>
+        <div class = "coset_off">coset OFF</div>
+
+        <label  class="coset">
+          <input id = "coset_toggle" type="checkbox">
+          <span class="slider"></span>
+        
+      </label>
+
+      <div class="bpmpage1">
+        <label>BPM</label>
+        <input id="bpm"  type="number" min="30" max="300" value="120">
+        </input>
+      </div>
+      <div id="coset_switch" >
+        <label>coset switch</label>
+        <input type="number" min="1" max="7" step="1" value="1" pattern="[1-7]*">
+        </input>
+        <label class = "add_coset">+</label>
+        <label class = "remove_coset">-</label>
+      </div>
+      <label  class="coset">
+        <input id = "coset_chose" type="checkbox">
+        <span class="slider"></span>
+      
+    </label>
+</div>
+      </div>
+      
+      <p id="togglebtn">Stop</p>
+
+
+    </div>
+    <script type = "module" src='main.mjs'></script>
+</body>
+
+</html>
