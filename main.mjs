@@ -13,7 +13,7 @@ Tone.context.lookAhead = 0;
 
 //CANVAS VARIABLES
 const canvas = document.getElementById('myCanvas');
-const canvas2 = document.getElementById('myCanvas2');
+//const canvas2 = document.getElementById('myCanvas2');
 
 
 //  Timing variables 
@@ -22,7 +22,7 @@ let end = 0;
 
 const tm = document.querySelector("#bpm")
 var bpm = Math.floor(tm.value);
-Tone.Transport.bpm.value = bpm;
+Tone.Transport.bpm.value = 200;//bpm;
 
 var smallPie;
 var largePie;
@@ -37,25 +37,72 @@ let Btn = document.getElementsByClassName("firstbtn");
 
 //SOUNDS: LOOP
 var cnt1;
-var polyrhythmLoop;
+
 
 listenGuest(guest1);
 listenHost(host1);
 calculate_pie();
-smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
-largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
+var smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
+var largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
+
+var polyrhythmLoop = new Tone.Loop(loopCallback(largePie, smallPie), "4n");
 
 guest1.onchange = (guest)=>{
     if (!guest1.value) guest1.value = 1;
     listenGuest(guest);
     calculate_pie();
-    smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
+    //smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
+    //smallPie.currentSub = guest1.value;
+    smallPie.setSub(guest1.value);
 }
 host1.onchange = (host)=>{
     if (!host1.value) host1.value = 1;
     listenHost(host);
     calculate_pie();
-    largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
+    //largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
+    //largePie.currentSub = host1.value;
+    largePie.setSub(host1.value);
+}
+
+function loopCallback(pieOut, pieIn){
+    return function (time) {
+        if (cnt1 == 0) {
+            kick.triggerAttackRelease("C2", "16n");
+            hat.triggerAttackRelease("C2", "16n");
+            Tone.Draw.schedule(
+                function () {
+                            pieIn.animate({
+                                timing: backEaseOut, duration: 300
+                            });
+                            pieOut.animate({
+                                timing: backEaseOut, duration: 300
+                            })
+                        }, time);
+                } 
+        
+
+        else if (guestBeats[cnt1]) {
+            hat.triggerAttackRelease("C2", "16n");               
+                Tone.Draw.schedule(
+                    function () {
+                        pieOut.animate(
+                            {
+                                timing: backEaseOut, duration: 300
+                            }
+                        )
+                    }, time);
+        }
+
+        else if (hostBeats[cnt1]) {
+            kick.triggerAttackRelease("C1", "16n");
+                Tone.Draw.schedule(
+                    function () {
+                        pieIn.animate({timing: backEaseOut, duration: 300})
+                        }, time);
+        }
+        cnt1++;
+        cnt1 = cnt1%sub;
+    }
 }
 
 
@@ -239,7 +286,7 @@ document.getElementById("startbtn").onclick = function () {
     start = performance.now();
     cnt1 = 0;
     largePie.innerPie = smallPie;
-    polyrhythmLoop = createLoop(largePie, smallPie);
+    polyrhythmLoop.callback = loopCallback(largePie, smallPie);
     Tone.start();
     ShowPage(3);
     polyrhythmLoop.start();
@@ -269,8 +316,14 @@ document.getElementById("togglebtn").onclick = function () {
 };
 
 document.getElementById("backbtn").onclick = function () {
-
+    polyrhythmLoop.stop();
     Tone.Transport.stop();
+    //polyrhythmLoop.dispose();
+    //polyrhythmLoop.cancel();
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    cnt1 = 0;
+    largePie.resetTheta();
+    smallPie.resetTheta();
     ShowPage(0);
 
 
