@@ -3,6 +3,7 @@ console.clear();
 import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost } from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
 import { kick, openHiHat, closedHiHat, hat } from "./sound.mjs"
+import { guest_num, guest_denom, host_num, host_denom } from "./polym.mjs"
 
 
 ///
@@ -63,7 +64,7 @@ function createLoop(pieOut, pieIn){
     var loop = new Tone.Loop(
         function (time) {
             if (cnt1 == 0) {
-                kick.triggerAttackRelease("C2", "16n");
+                kick.triggerAttackRelease("C1", "16n");
                 hat.triggerAttackRelease("C2", "16n");
                 Tone.Draw.schedule(
                     function () {
@@ -284,6 +285,31 @@ document.getElementById("backbtn").onclick = function () {
         ShowPage(0);
     }
 };
+
+document.getElementById("startbtn1").onclick = function () {
+  
+    Tone.start();
+    ShowPage(4);
+  
+    Tone.Transport.start("+1");
+  
+    end = performance.now();
+  };
+  
+  document.getElementById("backbtn1").onclick = function () {
+  
+    Tone.Transport.stop();
+    ShowPage(1);
+  
+  //if (document.querySelector("#togglebtn").textContent == "Stop") {
+  //  ShowPage(1);
+  //  Tone.Transport.stop()
+  //}
+  //else{
+  //  ShowPage(1);
+  //}
+  };
+
 
 document.getElementById("coset_toggle").onclick = function () {
     check_coset();

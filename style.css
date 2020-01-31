@@ -190,11 +190,45 @@ svg path {
   margin: 0;
 }
 .page .Quantity {
-  display: inline-block;
   margin: 15px 15px 10px;
   position: relative;
   color:#b7b7b7 ;
 }
+
+.pl_mn{
+  font-size: 30px;
+  text-align: center;
+}
+
+.plmn1{
+  position: relative;
+  left: -12.5%;
+  top: 30%;
+}
+
+.plmn2{
+  position: relative;
+  left: 13.5%;
+  top: 80%;
+}
+
+.plmn3{
+  position: relative;
+  left: -12.5%;
+  top: 30%;
+}
+
+.plmn4{
+  position: relative;
+  left: 13.5%;
+  top: 30%;
+}
+
+.slash{
+  font-size: 60px;
+  font-weight: 100px;
+}
+
 .page .Quantity input {
   color: #dce1d5;
   border-radius: 2px;
@@ -209,7 +243,7 @@ svg path {
   padding: 0 0px 0 2px;
   margin: 0;
   text-align: center;
-  width: 30px;
+  width: 70px;
 }
 .page .Quantity input:focus {
   outline: 0;
@@ -288,6 +322,20 @@ svg path {
   transition: all 250ms linear;
 }
 
+.text {
+  position: relative;
+  display: block;
+  font-family: "Helvetica ", Helvetica, serif;
+  font-weight: 200;
+  font-style: bold;
+  font-size: 100px;
+  text-align: center;
+  letter-spacing: 1.5px;
+  color: #dce1d5;
+  line-height: 1;
+  -webkit-animation: logo 5s ease-in normal 1;
+  animation: logo 5s ease-in normal 1;
+}
 
 .semicolon{
   position: relative;
@@ -304,7 +352,11 @@ svg path {
 .page4{
   width: 800px;
   float: left; 
+}
 
+.page5 {
+  width: 800px;
+  float: left; 
 }
 
 /* CROSS RHYTHM*/
@@ -323,6 +375,21 @@ svg path {
   float: center;
   cursor: pointer; 
 }
+#startbtn1{
+  position: relative;
+  background-color: #dce1d5;
+  color: black;
+  padding: 3px 10px;
+  font-family: "Source Code Pro", monospace;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  margin: 0px 0px 5px;
+  font-size: 16px;
+  float: center;
+  cursor: pointer; 
+}
+
 #backbtn{
   background-color: #dce1d5;
   color: black;
@@ -333,7 +400,25 @@ svg path {
 margin-left:40%;
 }
 
+#backbtn1{
+  background-color: #dce1d5;
+  color: black;
+  font-size: 16px;
+  cursor: pointer; 
+  width: 90px;
+  margin-left:45%;
+}
+
 #backbtn:hover{
+  background: black;
+  border: 1px solid black;
+  box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
+  color: #dce1d5;
+  text-decoration: none;
+  transition: all 250ms linear; 
+}
+
+#backbtn1:hover{
   background: black;
   border: 1px solid black;
   box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
@@ -458,6 +543,15 @@ input:checked + .slider:before {
 }
 
 #startbtn:hover{
+  background: black;
+  border: 1px solid black;
+  box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
+  color: #dce1d5;
+  text-decoration: none;
+  transition: all 250ms linear; 
+}
+
+#startbtn1:hover{
   background: black;
   border: 1px solid black;
   box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
