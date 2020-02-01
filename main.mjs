@@ -20,9 +20,8 @@ const canvas2 = document.getElementById('myCanvas2');
 let start = 0;
 let end = 0;
 
-const tm = document.querySelector("#bpm")
-var bpm = Math.floor(tm.value);
-Tone.Transport.bpm.value = bpm;
+
+Tone.Transport.bpm.value = 200// bpm;
 
 var smallPie;
 var largePie;
@@ -294,11 +293,7 @@ document.getElementById("coset_toggle").onclick = function () {
         coset = false;
     }
 }
-//CHANGE OF BPM
-tm.onchange = function () {
-    bpm = Math.floor(tm.value);
-    Tone.Transport.bpm.value = bpm;
-};
+
 
 
 //TIMING FOR ANIMATION
