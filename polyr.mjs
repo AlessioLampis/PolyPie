@@ -101,4 +101,4 @@ function calculate_pie() {
   
   };
 
-  export{calculate_pie,  hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost }
+  export{calculate_pie,  hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, lcm }
