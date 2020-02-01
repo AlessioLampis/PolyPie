@@ -42,8 +42,9 @@ listenHost(host1);
 calculate_pie();
 var smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
 var largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
+var smallerPie = new PolyrhythmPie(200/Math.sqrt(3.24), 2, canvas);
 
-var polyrhythmLoop = new Tone.Loop(loopCallback(largePie, smallPie), "4n");
+var polyrhythmLoop = new Tone.Loop(loopCallback(largePie, smallPie, smallerPie, coset), "4n");
 
 guest1.onchange = (guest)=>{
     if (!guest1.value) guest1.value = 1;
@@ -62,7 +63,7 @@ host1.onchange = (host)=>{
     largePie.setSub(host1.value);
 }
 
-function loopCallback(pieOut, pieIn){
+function loopCallback(pieOut, pieIn, pieCos, toggle){
     return function (time) {
         if (cnt1 == 0) {
             kick.triggerAttackRelease("C2", "16n");
@@ -97,6 +98,15 @@ function loopCallback(pieOut, pieIn){
                     function () {
                         pieIn.animate({timing: backEaseOut, duration: 300})
                         }, time);
+        }
+
+        if(toggle){
+            kick.triggerAttackRelease("C1", "16n");
+            Tone.Draw.schedule(
+                function() {
+                    pieCos.animate({timing: backEaseOut, duration: 300})
+                }, time)
+            
         }
         cnt1++;
         cnt1 = cnt1%sub;
@@ -285,7 +295,9 @@ document.getElementById("startbtn").onclick = function () {
     start = performance.now();
     cnt1 = 0;
     largePie.innerPie = smallPie;
-    polyrhythmLoop.callback = loopCallback(largePie, smallPie);
+    smallPie.innerPie = smallerPie;
+
+    polyrhythmLoop.callback = loopCallback(largePie, smallPie, smallerPie, coset);
     Tone.start();
     ShowPage(3);
     polyrhythmLoop.start();
@@ -322,6 +334,7 @@ document.getElementById("backbtn").onclick = function () {
     cnt1 = 0;
     largePie.resetTheta();
     smallPie.resetTheta();
+    smallerPie.resetTheta();
     ShowPage(0);
 
 
@@ -365,21 +378,39 @@ var backEaseOut = makeEaseOut(back);
   //BPM POLYRHYTHM
 var bpm1 = document.getElementById("tempo_choose");
 
-function bpmChange(){
-    if(bpm1.checked == true){
+function bpmChange(toggle, input){
+    if(toggle.checked == true){
         console.log("fast tempo");
-        Tone.Transport.bpm.value = 120*Math.floor(host1.value);
+        Tone.Transport.bpm.value = 120*Math.floor(input.value);
         
     }
     else{
         console.log("slow tempo");
-        Tone.Transport.bpm.value = 80*Math.floor(host1.value);
+        Tone.Transport.bpm.value = 80*Math.floor(input.value);
         
     }
 };
 
 bpm1.onclick = function(){
-    bpmChange()};
+    bpmChange(bpm1, host1)};
 
 //COSET
 
+var coset = false;
+//smallerPie.animate({timing: backEaseOut, duration: 300})
+
+function toggle_coset(toggle, variable){
+    if(toggle.checked == true){
+        console.log("coset on");
+        variable = !variable;
+    }
+    else{
+        console.log("coset off");
+        variable = !variable
+    }
+};
+
+coset_toggle.onclick = function(){
+    toggle_coset(coset_toggle, coset);
+
+};
