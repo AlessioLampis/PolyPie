@@ -21,7 +21,7 @@ let start = 0;
 let end = 0;
 
 
-Tone.Transport.bpm.value = 200// bpm;
+
 
 var smallPie;
 var largePie;
@@ -150,6 +150,7 @@ function ShowPage(n) {
 };
 
 //Function that color the button of the page selected
+
 function color_button(event) {
     selectors.forEach(reset_buttons);
     if (event.target.className == "LinBtn") {
@@ -242,9 +243,8 @@ document.getElementById("startbtn").onclick = function () {
     Tone.start();
     ShowPage(3);
     polyrhythmLoop.start();
-
     Tone.Transport.start("+1");
-
+    Tone.Transport.bpm.value = 80*Math.floor(host1.value);
 
     end = performance.now();
     console.log("Call to do the whole function took " + (end - start) + " milliseconds.");
@@ -284,15 +284,6 @@ document.getElementById("backbtn").onclick = function () {
     }
 };
 
-document.getElementById("coset_toggle").onclick = function () {
-    check_coset();
-    if (this.checked) {
-        coset = true;
-    }
-    else {
-        coset = false;
-    }
-}
 
 
 
@@ -318,3 +309,25 @@ function makeEaseOut(timing) {
 var backEaseOut = makeEaseOut(back);
 
   //var linEaseOut = makeEaseOut(linear);
+
+  //BPM POLYRHYTHM
+var bpm1 = document.getElementById("tempo_choose");
+
+function bpmChange(){
+    if(bpm1.checked == true){
+        console.log("fast tempo");
+        Tone.Transport.bpm.value = 120*Math.floor(host1.value);
+        
+    }
+    else{
+        console.log("slow tempo");
+        Tone.Transport.bpm.value = 80*Math.floor(host1.value);
+        
+    }
+};
+
+bpm1.onclick = function(){
+    bpmChange()};
+
+//COSET
+
