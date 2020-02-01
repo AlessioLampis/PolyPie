@@ -3,7 +3,7 @@ console.clear();
 import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, lcm} from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
 import { kick, openHiHat, closedHiHat, hat } from "./sound.mjs"
-import { guest_num, guest_denom, host_num, host_denom,} from "./polym.mjs"
+import { guest_num, guest_denom, host_num, host_denom} from "./polym.mjs"
 
 
 ///
@@ -39,9 +39,6 @@ let Btn = document.getElementsByClassName("firstbtn");
 //SOUNDS: LOOP
 var cnt1;
 var polyrhythmLoop;
-var d1, d2;
-var num;
-var denom;
 
 listenGuest(guest1);
 listenHost(host1);
@@ -62,33 +59,6 @@ host1.onchange = (host)=>{
     largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
 }
 
-// POLYMETER 
-guest_num.onchange = () => {
-    alert("changed");
-    num = whole_measure_num (guest_num, guest_denom, host_num, host_denom);
-    document.getElementsByClassName("num").innerHTML = num.toString();
-}
-guest_denom.onchange = () => {
-    num = whole_measure_num (guest_num, guest_denom, host_num, host_denom);
-    d1 = Math.floor(guest_denom);
-    d2 = Math.floor(host_denom);
-    denom = lcm(d1, d2);
-    document.getElementsByClassName("num").innerHTML = num.toString();
-    document.getElementsByClassName("denom").innerHTML = denom.toString();
-
-}
-host_num.onchange = () => {
-    num = whole_measure_num (guest_num, guest_denom, host_num, host_denom);
-    document.getElementsByClassName("num").innerHTML = num.toString();
-}
-host_denom.onchange = () => {
-    num = whole_measure_num (guest_num, guest_denom, host_num, host_denom);
-    d1 = Math.floor(guest_denom);
-    d2 = Math.floor(host_denom);
-    denom = lcm(d3, d4);
-    document.getElementsByClassName("num").innerHTML = num.toString();
-    document.getElementsByClassName("denom").innerHTML = denom.toString();
-}
 
 
 function createLoop(pieOut, pieIn){
