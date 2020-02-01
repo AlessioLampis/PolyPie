@@ -1,11 +1,10 @@
 var guest1 = document.getElementById("guest1");
 var host1 = document.getElementById("host1");
-
 var sub = 1; //number of tatum (subdivisions)
 
 var guestBeats = [];
 var hostBeats = [];
-
+var cosetBeats = [];
 
 
 
@@ -51,6 +50,8 @@ function listenGuest(guest) { //Guest value input
     }
     tatum_calculation();
   };
+
+
 
   function tatum_calculation() { //Only for Cross Rhythm
     sub = lcm(
@@ -102,4 +103,23 @@ function calculate_pie() {
   
   };
 
-  export{calculate_pie,  hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost }
+  function calculateCoset(toggle, n){
+  cosetBeats = [];
+  if(toggle){
+    cosetBeats = guestBeats;
+    for(var i; i < n; i++){
+      cosetBeats.unshift(cosetBeats[cosetBeats.length -1]);
+      cosetBeats.pop();
+    }
+  }
+  else{
+    cosetBeats = hostBeats;
+    for(var i; i < n; i++){
+      cosetBeats.unshift(cosetBeats[cosetBeats.length -1]);
+      cosetBeats.pop();
+    }
+  }
+  
+  }
+
+  export{calculate_pie,  hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats }

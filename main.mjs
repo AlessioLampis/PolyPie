@@ -1,6 +1,6 @@
 console.clear();
 
-import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost } from "./polyr.mjs"
+import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats } from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
 import { kick, openHiHat, closedHiHat, hat } from "./sound.mjs"
 
@@ -24,6 +24,7 @@ let end = 0;
 
 var smallPie;
 var largePie;
+var smallerPie;
 
 //NAVIGATE THROUGHT PAGE variables
 var CurrentPage = 0; //page where you are 
@@ -35,6 +36,7 @@ let Btn = document.getElementsByClassName("firstbtn");
 
 //SOUNDS: LOOP
 var cnt1;
+var coset = Boolean(0);
 
 
 listenGuest(guest1);
@@ -42,7 +44,7 @@ listenHost(host1);
 calculate_pie();
 var smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
 var largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
-var smallerPie = new PolyrhythmPie(200/Math.sqrt(3.24), 2, canvas);
+var smallerPie = new PolyrhythmPie(200/Math.sqrt(3.24), guest1.value, 2, canvas);
 
 var polyrhythmLoop = new Tone.Loop(loopCallback(largePie, smallPie, smallerPie, coset), "4n");
 
@@ -50,9 +52,11 @@ guest1.onchange = (guest)=>{
     if (!guest1.value) guest1.value = 1;
     listenGuest(guest);
     calculate_pie();
+    calculateCoset(coset, 1);
     //smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
     //smallPie.currentSub = guest1.value;
     smallPie.setSub(guest1.value);
+    smallerPie.setSub(guest1.value);
 }
 host1.onchange = (host)=>{
     if (!host1.value) host1.value = 1;
@@ -78,9 +82,19 @@ function loopCallback(pieOut, pieIn, pieCos, toggle){
                             })
                         }, time);
                 } 
+        if(toggle == true){
+            if(cosetBeats[cnt1]) {
+                  //kick.triggerAttackRelease("C1", "16n");
+                Tone.Draw.schedule(
+                  function () {
+                 pieCos.animate({timing: backEaseOut, duration: 300})
+                 }, time);
+                    }
+                }
         
 
         else if (guestBeats[cnt1]) {
+            
             hat.triggerAttackRelease("C2", "16n");               
                 Tone.Draw.schedule(
                     function () {
@@ -100,14 +114,6 @@ function loopCallback(pieOut, pieIn, pieCos, toggle){
                         }, time);
         }
 
-        if(toggle){
-            kick.triggerAttackRelease("C1", "16n");
-            Tone.Draw.schedule(
-                function() {
-                    pieCos.animate({timing: backEaseOut, duration: 300})
-                }, time)
-            
-        }
         cnt1++;
         cnt1 = cnt1%sub;
     }
@@ -151,6 +157,8 @@ function createLoop(pieOut, pieIn){
                             pieIn.animate({timing: backEaseOut, duration: 300})
                             }, time);
             }
+            
+
             cnt1++;
             cnt1 = cnt1%sub;
         }
@@ -256,6 +264,7 @@ elementList.forEach(function (element) {
                 }, 3000);
             });
         };
+        
 
         if (element == host1) {
             element.addEventListener("mouseover", function () {
@@ -267,16 +276,7 @@ elementList.forEach(function (element) {
             }
             );
         }
-        if (element == result) {
-            element.addEventListener("mouseover", function () {
-                var x = document.getElementById("snackbarTatum");
-                x.className = "show";
-                setTimeout(function () {
-                    x.className = x.className.replace("show", "");
-                }, 3000);
-            }
-            );
-        }
+      
     };
 });
 
@@ -296,7 +296,6 @@ document.getElementById("startbtn").onclick = function () {
     cnt1 = 0;
     largePie.innerPie = smallPie;
     smallPie.innerPie = smallerPie;
-
     polyrhythmLoop.callback = loopCallback(largePie, smallPie, smallerPie, coset);
     Tone.start();
     ShowPage(3);
@@ -396,21 +395,28 @@ bpm1.onclick = function(){
 
 //COSET
 
-var coset = false;
 //smallerPie.animate({timing: backEaseOut, duration: 300})
 
-function toggle_coset(toggle, variable){
-    if(toggle.checked == true){
-        console.log("coset on");
-        variable = !variable;
+var coset_toggle = docuement.getElementById("coset_toggle");
+
+function toggle_coset(){
+    if(coset_toggle.checked == true){
+        //coset =!coset;
+        console.log("coset" );
+        
+       
     }
     else{
-        console.log("coset off");
-        variable = !variable
+        //coset =!coset;
+        console.log("coset"  );
+        
+           
     }
 };
 
-coset_toggle.onclick = function(){
-    toggle_coset(coset_toggle, coset);
 
+
+coset_toggle.onclick = function(){
+    toggle_coset();
 };
+
