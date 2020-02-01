@@ -3,8 +3,7 @@ console.clear();
 import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost } from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
 import { kick, openHiHat, closedHiHat, hat } from "./sound.mjs"
-
-
+import { guest_num, guest_denom, host_num, host_denom} from "./polym.mjs"
 ///
 //**MODEL**//
 ///
@@ -352,7 +351,24 @@ tm.onchange = function () {
     bpm = Math.floor(tm.value);
     Tone.Transport.bpm.value = bpm;
 };
+//POLYMETER PAGE
+document.getElementById("startbtn1").onclick = function () {
+  
+    Tone.start();
+    ShowPage(4);
+  
+    Tone.Transport.start("+1");
+  
+    end = performance.now();
+  };
+  
+  document.getElementById("backbtn1").onclick = function () {
+  
+    Tone.Transport.stop();
+    ShowPage(1);
+  
 
+  };
 
 //TIMING FOR ANIMATION
 
