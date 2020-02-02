@@ -8,8 +8,8 @@ import { kick, openHiHat, closedHiHat, hat } from "./sound.mjs"
 ///
 //**MODEL**//
 ///
-Tone.context.latencyHint = 'balanced';
-Tone.context.lookAhead = 0.1;
+Tone.context.latencyHint = 'fastest';
+//Tone.context.lookAhead = 0;
 
 //CANVAS VARIABLES
 const canvas = document.getElementById('myCanvas');
@@ -106,57 +106,12 @@ function loopCallback(pieOut, pieIn){
 
         cnt1++;
         cnt1 = cnt1%sub;
+        console.log(cnt1);
     }
 }
 
 
-function createLoop(pieOut, pieIn){
-    var loop = new Tone.Loop(
-        function (time) {
-            if (cnt1 == 0) {
-                kick.triggerAttackRelease("C2", "16n");
-                hat.triggerAttackRelease("C2", "16n");
-                Tone.Draw.schedule(
-                    function () {
-                                pieIn.animate({
-                                    timing: backEaseOut, duration: 300
-                                });
-                                pieOut.animate({
-                                    timing: backEaseOut, duration: 300
-                                })
-                            }, time);
-                    } 
-            
-    
-            else if (guestBeats[cnt1]) {
-                hat.triggerAttackRelease("C2", "16n");               
-                    Tone.Draw.schedule(
-                        function () {
-                            pieOut.animate(
-                                {
-                                    timing: backEaseOut, duration: 300
-                                }
-                            )
-                        }, time);
-            }
-    
-            else if (hostBeats[cnt1]) {
-                kick.triggerAttackRelease("C1", "16n");
-                    Tone.Draw.schedule(
-                        function () {
-                            pieIn.animate({timing: backEaseOut, duration: 300})
-                            }, time);
-            }
-            
 
-            cnt1++;
-            cnt1 = cnt1%sub;
-        }
-        , "4n");
-    
-
-    return loop;
-}
 
 
 //animation setup
@@ -291,7 +246,8 @@ document.getElementById("startbtn").onclick = function () {
     polyrhythmLoop.start("+0.01");
     Tone.Transport.start("+1");
     Tone.Transport.bpm.value = 80*Math.floor(host1.value);
-
+     console.log(hostBeats.toString());
+     console.log(guestBeats.toString());
     end = performance.now();
     console.log("Call to do the whole function took " + (end - start) + " milliseconds.");
 };
