@@ -106,20 +106,23 @@ function calculate_pie() {
   function calculateCoset(toggle, n){
   cosetBeats = [];
   if(toggle){
-    cosetBeats = guestBeats;
-    for(var i; i < n; i++){
-      cosetBeats.unshift(cosetBeats[cosetBeats.length -1]);
+    for(var x = 0; x < sub; x ++){
+      x%guest1.value == 0 ? cosetBeats.push(true) : cosetBeats.push(false);
+    };
+    for(var i = 0; i < n ; i++){
+      cosetBeats.unshift(cosetBeats[cosetBeats["length"] -1]);
       cosetBeats.pop();
     }
   }
   else{
-    cosetBeats = hostBeats;
-    for(var i; i < n; i++){
-      cosetBeats.unshift(cosetBeats[cosetBeats.length -1]);
+    for(var y = 0; y < sub; y ++){
+      y%host1.value == 0 ? cosetBeats.push(true) : cosetBeats.push(false);
+    };
+    for(var j = 0; j < n; j++){
+      cosetBeats.unshift(cosetBeats[cosetBeats["length"] -1]);
       cosetBeats.pop();
     }
   }
-  
   }
 
   export{calculate_pie,  hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats }
