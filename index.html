@@ -102,44 +102,51 @@
           <button type="button" id="ClvBtn" class="ClvBtn">Info </button>
         </div>
       </div>
-      <label>Guest</label>
 
-      <div class="Quantity">
-        <input type="number" min="1" max="8" id="guest2" step="1" value="1" pattern="[1-8]*">
-        </input>
+      
+
+      <div class="Quantity pol1">
+        <label>Guest</label>
+        <div class="plmn1">
+          <span class = "pl_mn plus1" style = "cursor: pointer"> + </span>
+          <span class = "pl_mn minus1" style = "cursor: pointer"> - </span>
+        </div>
+        <input type="number" class="numdenom" min="1" max="8" id="guest_num" value="1" ></input>
+        <label class='slash'>/</label>
+        <input type="number" class="numdenom" min="4" max="16" id="guest_denom" value="4" ></input>
+        <div class="plmn2">
+          <span class = "pl_mn plus2" style = "cursor: pointer"> + </span>
+          <span class = "pl_mn minus2" style = "cursor: pointer"> - </span>
+        </div>
       </div>
 
-      <label>Host</label>
+      <div class="semicolon">:</div>
 
-      <div class="Quantity">
-        <input type="number" min="4" max="16" id="host2" step="4" value="4" pattern="[4-16]*"
-          disabled="disabled"></input>
+      <div class="Quantity pol2">
+        <label>Host</label>
+        <div class="plmn3">
+          <span class = "pl_mn plus3" style = "cursor: pointer"> + </span>
+          <span class = "pl_mn minus3" style = "cursor: pointer"> - </span>
+        </div>
+        <input type="number" class="numdenom" min="1" max="8" id="host_num" value="1" ></input>
+        <label class='slash'>/</label>
+        <input type="number" class="numdenom" min="4" max="16" id="host_denom" value="4" ></input>
+        <div class="plmn4">
+          <span class = "pl_mn plus4" style = "cursor: pointer"> + </span>
+          <span class = "pl_mn minus4" style = "cursor: pointer"> - </span>
+        </div class="plmn4">
+      </div>      
+
+      <p class="meas">Whole measure :</p>
+      <div class='wholemeasure'>
+        <p class="result2 num">1</p>
+        <label>/</label>
+        <p class="result2 denom">1</p>
       </div>
-      <span class="plus" style="cursor: pointer">+</span>
-      <span class="minus" style="cursor: pointer">-</span>
-
-      <label>Guest</label>
-
-      <div class="Quantity">
-        <input type="number" min="1" max="8" id="guest3" step="1" value="1" pattern="[1-8]*">
-        </input>
-      </div>
-
-      <label>Host</label>
-
-      <div class="Quantity">
-        <input type="number" min="4" max="16" id="host3" step="4" value="4" pattern="[4-16]*"
-          disabled="disabled"></input>
-      </div>
-      <span class="plus2" style="cursor: pointer">+</span>
-      <span class="minus2" style="cursor: pointer">-</span>
-
-      <p id="notation">1</p>
-
-
-
-
+      <p id="startbtn1">Start</p>
+      
     </div>
+
 
     <div class="page page3">
       <span class="logo">PolyPie</span>
@@ -223,6 +230,14 @@
 
       <p id="togglebtn">Stop</p>
 
+
+    </div>
+
+    <div class="page page5">
+      <span class="logo">PolyPie</span>
+      <p id="pagetitle">Polymeter</p>
+      <p id="backbtn1">Back</p>
+      <canvas width='500' height='500' id='myCanvas2'></canvas>
 
     </div>
     <script type="module" src='main.mjs'></script>

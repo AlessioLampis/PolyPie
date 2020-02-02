@@ -1,112 +1,195 @@
 //POLYMETER notation
+var guest_num = document.getElementById("guest_num");
+var guest_denom = document.getElementById("guest_denom");
+var host_num = document.getElementById("host_num");
+var host_denom = document.getElementById("host_denom");
+var n1, n2, d1, d2, k1, k2, nk1, nk2, d, n;
+var num = 1;
+var denom = 4;
 
-guest2.onchange = function () { //N1 Numerator of rhythm number 1
-  document.getElementById("guest2").value = Math.floor(
-    guest2.value
-  );
-  if (guest2.value > 8) { //To change but I don't know how
-    guest2.value = 8;
-    alert("Guest value can't exceed 8"); // to change in "20(?)"
+
+/*guest_num.value = num;
+guest_denom.value = denom;
+
+host_num.value = num;
+host_denom.value = denom;*/
+
+//POLYMETER Tatum
+//guest_num.onchange = () => {
+document.querySelector(".minus1").onclick = function () {
+  if (guest_num.value == 1) {
+    guest_num.value = 1;
   }
-  if (guest2.value == 0) {
-    guest2.value = 1;
+  else {
+    guest_num.value = Math.floor(guest_num.value) - 1;
   }
-  if (guest2.value < 0){
-    alert("Host value must be positive");
-    guest2.value = 1;}
-  
+  num = Math.floor(measure_num(guest_num.value, guest_denom.value, host_num.value, host_denom.value));
+  denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
+  document.getElementsByClassName("num")[0].innerHTML = num;
+  document.getElementsByClassName("denom")[0].innerHTML = denom;
 };
 
-host2.onchange = function () { // D1 Denumerator of rhythm number 2
-  document.getElementById("host2").value = Math.floor(
-    host2.value
-  );
-  if (host2.value > 16) { 
-    host2.value = 16;
-    
+document.querySelector(".plus1").onclick = function () {
+  if (guest_num.value == 8) {
+    guest_num.value = 8;
   }
-  if (host2.value < 4) {
-    host2.value = 4;
+  else {
+    guest_num.value = Math.floor(guest_num.value) + 1;
   }
-  
-  //tatum_calculation();
+  num = Math.floor(measure_num(guest_num.value, guest_denom.value, host_num.value, host_denom.value));
+  denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
+  document.getElementsByClassName("num")[0].innerHTML = num;
+  document.getElementsByClassName("denom")[0].innerHTML = denom;
+};
+//}
+
+//guest_denom.onchange = () => {
+document.querySelector(".minus2").onclick = function () {
+
+  if (guest_denom.value == 16) {
+    guest_denom.value = 8;
+  }
+  else if (guest_denom.value == 8) {
+    guest_denom.value = 4;
+  }
+  else if (guest_denom.value == 4) {
+    guest_denom.value = 4;
+  }
+  num = Math.floor(measure_num(guest_num.value, guest_denom.value, host_num.value, host_denom.value));
+  denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
+  document.getElementsByClassName("num")[0].innerHTML = num;
+  document.getElementsByClassName("denom")[0].innerHTML = denom;
 };
 
-guest3.onchange = function () { //N2 Numerator of rhythm 2
-  document.getElementById("guest3").value = Math.floor(
-    guest3.value
-  );
-  if (guest3.value > 8) { //Same as N1
-    guest3.value = 8;
-    alert("Guest value can't exceed 8");
+document.querySelector(".plus2").onclick = function () {
+  if (guest_denom.value == 4) {
+    guest_denom.value = 8;
   }
-  if (guest3.value == 0) {
-    guest3.value = 1;
+  else if (guest_denom.value == 8) {
+    guest_denom.value = 16;
   }
-  if (guest3.value < 0){
-    alert("Host value must be positive");
-    guest3.value = 1;}
-  //tatum_calculation();
+  else if (guest_denom.value == 16) {
+    guest_denom.value = 16;
+  }
+  num = Math.floor(measure_num(guest_num.value, guest_denom.value, host_num.value, host_denom.value));
+  denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
+  document.getElementsByClassName("num")[0].innerHTML = num;
+  document.getElementsByClassName("denom")[0].innerHTML = denom;
+};
+//}
+
+//host_num.onchange = () => {
+document.querySelector(".minus3").onclick = function () {
+  if (host_num.value == 1) {
+    host_num.value = 1;
+  }
+  else {
+    host_num.value = Math.floor(host_num.value) - 1;
+  }
+  num = Math.floor(measure_num(guest_num.value, guest_denom.value, host_num.value, host_denom.value));
+  denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
+  document.getElementsByClassName("num")[0].innerHTML = num;
+  document.getElementsByClassName("denom")[0].innerHTML = denom;
 };
 
-host3.onchange = function () {  // D2 Denominator of rhythm 2
-  document.getElementById("host3").value = Math.floor(
-    host3.value
-  );
-  if (host3.value > 16) { //Same as N1
-    host3.value = 16;
-    
+document.querySelector(".plus3").onclick = function () {
+  if (host_num.value == 8) {
+    host_num.value = 8;
   }
-  if (host3.value < 4) {
-    host3.value = 4;
+  else {
+    host_num.value = Math.floor(host_num.value) + 1;
   }
+  num = Math.floor(measure_num(guest_num.value, guest_denom.value, host_num.value, host_denom.value));
+  denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
+  document.getElementsByClassName("num")[0].innerHTML = num;
+  document.getElementsByClassName("denom")[0].innerHTML = denom;
+};
+//}
+
+//host_denom.onchange = () => {
+document.querySelector(".minus4").onclick = function () {
+
+  if (host_denom.value == 16) {
+    host_denom.value = 8;
+  }
+  else if (host_denom.value == 8) {
+    host_denom.value = 4;
+  }
+  else if (host_denom.value == 4) {
+    host_denom.value = 4;
+  }
+  num = Math.floor(measure_num(guest_num.value, guest_denom.value, host_num.value, host_denom.value));
+  denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
+  document.getElementsByClassName("num")[0].innerHTML = num;
+  document.getElementsByClassName("denom")[0].innerHTML = denom;
 };
 
-document.querySelector(".minus").onclick = function(){
-  host2.value = parseInt(host2.value)%2;
-  
-  if (host2.value > 16) { 
-    host2.value = 16;
-    
+document.querySelector(".plus4").onclick = function () {
+  if (host_denom.value == 4) {
+    host_denom.value = 8;
   }
-  if (host2.value < 4) {
-    host2.value = 4;
+  else if (host_denom.value == 8) {
+    host_denom.value = 16;
   }
+  else if (host_denom.value == 16) {
+    host_denom.value = 16;
+  }
+  num = Math.floor(measure_num(guest_num.value, guest_denom.value, host_num.value, host_denom.value));
+  denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
+  document.getElementsByClassName("num")[0].innerHTML = num;
+  document.getElementsByClassName("denom")[0].innerHTML = denom;
 };
+//}
 
-document.querySelector(".plus").onclick = function(){
-    host2.value = parseInt(host2.value)*2;
-    
-    if (host2.value > 16) { 
-      host2.value = 16;
-      
-    }
-    if (host2.value < 4) {
-      host2.value = 4;
-    }
-  };
 
-document.querySelector(".minus2").onclick = function(){
-      host3.value = parseInt(host3.value)%2;
-      
-      if (host3.value > 16) { //Same as N1
-        host3.value = 16;
-        
-      }
-      if (host3.value < 4) {
-        host3.value = 4;
-      }
-    };
+function lcm_lcm(x, y) {
+  if (x == 0) {
+    x = 1;
+  }
+  if (y == 0) {
+    y = 1;
+  }
+  if (typeof x !== "number" || typeof y !== "number") return false;
+  return Math.abs(x * y / gcd(x, y));
+}
 
-document.querySelector(".plus2").onclick = function(){
-        host3.value = parseInt(host3.value)*2; 
-        
-        if (host3.value > 16) { //Same as N1
-          host3.value = 16;
-          
-        }
-        if (host3.value < 4) {
-          host3.value = 4;
-        }
-      };    
+function gcd(x, y) {
+  x = Math.abs(x);
+  y = Math.abs(y);
+  while (y) {
+    var t = y;
+    y = x % y;
+    x = t;
+  }
+  return x;
+}
 
+function measure_num(guest_num, guest_denom, host_num, host_denom) {
+
+  n1 = Math.floor(guest_num);
+  n2 = Math.floor(host_num);
+  d1 = Math.floor(guest_denom);
+  d2 = Math.floor(host_denom);
+  d = lcm_lcm(d1, d2);
+  k1 = d / d1;
+  k2 = d / d2;
+
+  nk1 = n1 * k1;
+  nk2 = n2 * k2;
+
+  n = lcm_lcm(nk1, nk2);
+
+  return n;
+}
+
+function measure_denom(guest_denom, host_denom) {
+  d1 = Math.floor(guest_denom);
+  d2 = Math.floor(host_denom);
+  d = lcm_lcm(d1, d2);
+  return d;
+}
+
+
+
+
+export { guest_num, guest_denom, host_num, host_denom, num, denom}

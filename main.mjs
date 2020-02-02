@@ -3,17 +3,18 @@ console.clear();
 import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats } from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
 import { kick, openHiHat, closedHiHat, hat } from "./sound.mjs"
+import { guest_num, guest_denom, host_num, host_denom, num, denom} from "./polym.mjs"
 
 
 ///
 //**MODEL**//
 ///
-Tone.context.latencyHint = 'balanced';
+Tone.context.latencyHint = 'fastest';
 //Tone.context.lookAhead = 0;
 
 //CANVAS VARIABLES
 const canvas = document.getElementById('myCanvas');
-//const canvas2 = document.getElementById('myCanvas2');
+const canvas2 = document.getElementById('myCanvas2');
 
 
 //  Timing variables 
@@ -36,6 +37,7 @@ let Btn = document.getElementsByClassName("firstbtn");
 
 //SOUNDS: LOOP
 var cnt1;
+var cnt2;
 var coset = false;
 
 
@@ -45,8 +47,14 @@ calculate_pie();
 var smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
 var largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
 
-var polyrhythmLoop = new Tone.Loop(loopCallback(largePie, smallPie, smallerPie, coset), "4n");
+var polyrhythmLoop = new Tone.Loop(rhythmLoopCallback(largePie, smallPie, smallerPie, coset), "4n"); // the coset parameters are useless for now
 
+var smallMeter = new PolyrhythmPie(200 / Math.sqrt(1.62), guest_num.value, 1, canvas2);
+var largeMeter = new PolyrhythmPie(200, host_num.value, 0, canvas2);
+
+var polymeterLoop = new Tone.Loop(meterLoopCallback(smallMeter, largeMeter), "4n");
+
+/***    BUTTON LISTENERS    ***/
 guest1.onchange = (guest)=>{
     if (!guest1.value) guest1.value = 1;
     listenGuest(guest);
@@ -65,7 +73,10 @@ host1.onchange = (host)=>{
     largePie.setSub(host1.value);
 }
 
-function loopCallback(pieOut, pieIn){
+
+
+
+function rhythmLoopCallback(pieOut, pieIn){
     return function (time) {
         if (cnt1 == 0) {
             kick.triggerAttackRelease("C2", "16n");
@@ -110,6 +121,19 @@ function loopCallback(pieOut, pieIn){
     }
 }
 
+
+function meterLoopCallback(pieOut, pieIn){
+    return function (time) {
+        console.log("Looping "+ cnt2);
+        Tone.Draw.schedule(function (){
+            console.log("Drawing " + cnt2);
+            pieOut.animate({timing: backEaseOut, duration: 300});
+            pieIn.animate({timing: backEaseOut, duration: 300});
+        }, time);
+        cnt2++;
+        cnt2 = cnt2 % num;
+    }
+}
 
 
 
@@ -237,10 +261,12 @@ document.documentElement.addEventListener('mousedown', function () {
 });
 
 document.getElementById("startbtn").onclick = function () {
+    Tone.Transport.cancel();
     start = performance.now();
     cnt1 = 0;
     largePie.innerPie = smallPie;
-    polyrhythmLoop.callback = loopCallback(largePie, smallPie);
+    //polyrhythmLoop.callback = rhythmLoopCallback(largePie, smallPie);
+    polyrhythmLoop = new Tone.Loop(rhythmLoopCallback(largePie, smallPie), "4n");
     Tone.start();
     ShowPage(3);
     polyrhythmLoop.start("+0.01");
@@ -262,18 +288,13 @@ document.getElementById("togglebtn").onclick = function () {
         
         document.querySelector("#togglebtn").textContent = "Stop"
         polyrhythmLoop.start();
-
-
-
     }
-
 };
 
 document.getElementById("backbtn").onclick = function () {
     polyrhythmLoop.stop();
-    Tone.Transport.stop();
     //polyrhythmLoop.dispose();
-    //polyrhythmLoop.cancel();
+    Tone.Transport.stop();
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     cnt1 = 0;
     largePie.resetTheta();
@@ -291,6 +312,30 @@ document.getElementById("backbtn").onclick = function () {
         ShowPage(0);
     }
 };
+
+//POLYMETER PAGE
+document.getElementById("startbtn1").onclick = function () {
+    Tone.Transport.cancel(); 
+    start = performance.now();
+    cnt2 = 0;
+    largeMeter.innerPie = smallMeter;
+    polymeterLoop = new Tone.Loop(meterLoopCallback(largeMeter, smallMeter), "4n");
+    polymeterLoop.start();
+    Tone.start();
+    ShowPage(4);
+    Tone.Transport.start("+1");
+    end = performance.now();
+    console.log("Call to do the whole function took " + (end - start) + " milliseconds.");
+  };
+  
+  document.getElementById("backbtn1").onclick = function () {
+  
+    Tone.Transport.stop();
+    ShowPage(1);
+  
+
+  };
+
 
 
 
