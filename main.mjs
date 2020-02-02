@@ -12,7 +12,7 @@ Tone.context.lookAhead = 0;
 
 //CANVAS VARIABLES
 const canvas = document.getElementById('myCanvas');
-//const canvas2 = document.getElementById('myCanvas2');
+const canvas2 = document.getElementById('myCanvas2');
 
 
 //  Timing variables 
@@ -25,6 +25,8 @@ Tone.Transport.bpm.value = 200;//bpm;
 
 var smallPie;
 var largePie;
+var smallMeter;
+var largeMeter;
 
 //NAVIGATE THROUGHT PAGE variables
 var CurrentPage = 0; //page where you are 
@@ -36,7 +38,7 @@ let Btn = document.getElementsByClassName("firstbtn");
 
 //SOUNDS: LOOP
 var cnt1;
-
+var cnt2;
 
 listenGuest(guest1);
 listenHost(host1);
@@ -44,7 +46,11 @@ calculate_pie();
 var smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
 var largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
 
-var polyrhythmLoop = new Tone.Loop(loopCallback(largePie, smallPie), "4n");
+var smallMeter = new PolyrhythmPie(200 / Math.sqrt(1.62), guest_num.value, 1, canvas2);
+var largeMeter = new PolyrhythmPie(200, host_num.value, 0, canvas2);
+
+var polyrhythmLoop = new Tone.Loop(polyrloopCallback(largePie, smallPie), "4n");
+var polymeterLoop = new Tone.Loop(polymLoopCallback(largeMeter, smallMeter), "4n");
 
 guest1.onchange = (guest)=>{
     if (!guest1.value) guest1.value = 1;
@@ -63,7 +69,8 @@ host1.onchange = (host)=>{
     largePie.setSub(host1.value);
 }
 
-function loopCallback(pieOut, pieIn){
+
+function polyrloopCallback(pieOut, pieIn){
     return function (time) {
         if (cnt1 == 0) {
             kick.triggerAttackRelease("C2", "16n");
@@ -105,50 +112,24 @@ function loopCallback(pieOut, pieIn){
 }
 
 
-function createLoop(pieOut, pieIn){
-    var loop = new Tone.Loop(
-        function (time) {
-            if (cnt1 == 0) {
-                kick.triggerAttackRelease("C2", "16n");
-                hat.triggerAttackRelease("C2", "16n");
-                Tone.Draw.schedule(
-                    function () {
-                                pieIn.animate({
-                                    timing: backEaseOut, duration: 300
-                                });
-                                pieOut.animate({
-                                    timing: backEaseOut, duration: 300
-                                })
-                            }, time);
-                    } 
-            
+function polymLoopCallback(pieOut, pieIn){
+        return function (time) {
+            Tone.Draw.schedule(
+                function () {
+                    pieIn.animate({
+                        timing: backEaseOut, duration: 300
+                    });
+                    pieOut.animate({
+                        timing: backEaseOut, duration: 300
+                    })
+                    }, time);
+           // if guest on => play the snare;
+            // else if  host on => play the kick;
+           // else  play the hi hat
+            cnt2++;
+            cnt2 = cnt2%sub;
+        };
     
-            else if (guestBeats[cnt1]) {
-                hat.triggerAttackRelease("C2", "16n");               
-                    Tone.Draw.schedule(
-                        function () {
-                            pieOut.animate(
-                                {
-                                    timing: backEaseOut, duration: 300
-                                }
-                            )
-                        }, time);
-            }
-    
-            else if (hostBeats[cnt1]) {
-                kick.triggerAttackRelease("C1", "16n");
-                    Tone.Draw.schedule(
-                        function () {
-                            pieIn.animate({timing: backEaseOut, duration: 300})
-                            }, time);
-            }
-            cnt1++;
-            cnt1 = cnt1%sub;
-        }
-        , "4n");
-    
-
-    return loop;
 }
 
 
@@ -277,15 +258,14 @@ elementList.forEach(function (element) {
 ////
 
 
-document.documentElement.addEventListener('mousedown', function () {
+/*document.documentElement.addEventListener('mousedown', function () {
     if (Tone.context.state !== 'running') Tone.context.resume();
-});
-
+});*/
 document.getElementById("startbtn").onclick = function () {
     start = performance.now();
     cnt1 = 0;
     largePie.innerPie = smallPie;
-    polyrhythmLoop.callback = loopCallback(largePie, smallPie);
+    polyrhythmLoop.callback = polyrLoopCallback(largePie, smallPie);
     Tone.start();
     ShowPage(3);
     polyrhythmLoop.start();
@@ -346,20 +326,24 @@ document.getElementById("coset_toggle").onclick = function () {
         coset = false;
     }
 }
+
 //CHANGE OF BPM
 tm.onchange = function () {
     bpm = Math.floor(tm.value);
     Tone.Transport.bpm.value = bpm;
 };
+
 //POLYMETER PAGE
 document.getElementById("startbtn1").onclick = function () {
-  
+    start = performance.now();
+    cnt2 = 0;
+    largeMeter.innerPie = smallMeter;
+    polymeterLoop.callback = createLoop(largeMeter, smallMeter);
     Tone.start();
     ShowPage(4);
-  
     Tone.Transport.start("+1");
-  
     end = performance.now();
+    console.log("Call to do the whole function took " + (end - start) + " milliseconds.");
   };
   
   document.getElementById("backbtn1").onclick = function () {
