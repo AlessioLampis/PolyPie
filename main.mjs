@@ -8,7 +8,7 @@ import { kick, openHiHat, closedHiHat, hat } from "./sound.mjs"
 ///
 //**MODEL**//
 ///
-Tone.context.latencyHint = 'fastest';
+Tone.context.latencyHint = 'balanced';
 //Tone.context.lookAhead = 0;
 
 //CANVAS VARIABLES
