@@ -7,8 +7,8 @@ class PolyrhythmPie {
       this.sub = sub;
       this.strongColor = strongColors[colorIndex];
       this.weakColor = weakColors[colorIndex];
-      this.alpha = (2 * Math.PI) / this.sub;
-      this.theta = this.alpha*(this.sub-2);
+      this.alpha = (2 * Math.PI) / this.sub ;
+      this.theta = this.alpha*(this.sub-2) -Math.PI/2;
       this.progress = 0;
       this.innerPie = null;
       this.canvas = canvas;
@@ -16,12 +16,12 @@ class PolyrhythmPie {
 
     setSub(newValue){
       this.sub = newValue;
-      this.alpha = (2 * Math.PI) / this.sub;
-      this.theta = this.alpha*(this.sub-2);
+      this.alpha = (2 * Math.PI) / this.sub ;
+      this.theta = this.alpha*(this.sub-2) -Math.PI/2;
     }
 
     resetTheta(){
-      this.theta = this.alpha*(this.sub-2);
+      this.theta = this.alpha*(this.sub-2) -Math.PI/2;
       this.progress = 0;
       console.log(this);
     }

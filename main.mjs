@@ -2,7 +2,7 @@ console.clear();
 
 import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats } from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
-import { kick, openHiHat, closedHiHat, hat } from "./sound.mjs"
+import{ s1, s2, c1, c2, c3, c4} from "./sound.mjs"
 import { guest_num, guest_denom, host_num, host_denom, num, denom } from "./polym.mjs"
 
 
@@ -124,29 +124,45 @@ function rhythmLoopCallback(pieOut, pieIn) {
 
 function meterLoopCallback(pieOut, pieIn) {
     return function (time) {
-        var n = guest_denom.value / 4;
-        var m = host_denom.value / 4;
+        var n = Math.floor(guest_denom.value / 4);
+        var m = Math.floor(host_denom.value / 4);
         Tone.Draw.schedule(function () {
-            if (cnt2 % n == 0) pieIn.animate({ timing: backEaseOut, duration: 200/n });
-            if (cnt2 % m == 0) pieOut.animate({ timing: backEaseOut, duration: 200/m });
+            
+            if (cnt2 % m == 0) {
+                pieIn.animate({ timing: backEaseOut, duration: 200/(n**(1.3)) });
+            }
+            if (cnt2 % n == 0) {
+
+                pieOut.animate({ timing: backEaseOut, duration: 200/(m**(1.3)) });
+        }
         }, time);
+    
+        //console.log(speedRatio(guest_denom.value, host_denom.value));
+        console.log(slowest(guest_num.value, guest_denom.value, host_num.value, host_denom.value));
         //play hi hat
         //
+        
+        
         if (cnt2%fastest(guest_num.value, guest_denom.value, host_num.value, host_denom.value)==0){
-            kick.triggerAttackRelease("C1", "16n");
+            s1.triggerAttackRelease("C2", "16n");
+            //console.log("fast play") ;  
+
         }
         if (cnt2%(slowest(guest_num.value, guest_denom.value, host_num.value, host_denom.value)*speedRatio(guest_denom.value, host_denom.value))==0){
-           hat.triggerAttackRelease("C2", "16n")
+            console.log("slow play") ;  
+            s2.triggerAttackRelease("C1", "16n");
+
         }
         cnt2++;
-        cnt2 = cnt2 % denom;
+        cnt2 = cnt2 % num;
     }
 }
 
 function speedRatio(g, h) {
-    var largeSub = g >= h ? g : h;
+    /*var largeSub = g >= h ? g : h;
     var smallSub = h <= g ? h : g;
-    return largeSub / smallSub;
+    return largeSub / smallSub;*/
+    return (g/h > 1)? g/h: h/g;
 }
 
 function fastest(gn, gd, hn, hd) {
@@ -154,7 +170,7 @@ function fastest(gn, gd, hn, hd) {
     return fast;
 }
 function slowest(gn, gd, hn, hd) {
-    var slow = gd <= hd ? gn : hn;
+    var slow = hd <= gd ? hn : gn;
     return slow;
 }
 
@@ -359,14 +375,13 @@ document.getElementById("backbtn").onclick = function () {
 
 //POLYMETER PAGE
 document.getElementById("startbtn1").onclick = function () {
-    // SET THE BPM TO A NORMAL VALUE!
     Tone.Transport.cancel();
+    Tone.Transport.bpm.value = 100;
     start = performance.now();
-    cnt2 = 1;
+    cnt2 = 0;
     largeMeter.setSub(host_num.value);
     smallMeter.setSub(guest_num.value);
     largeMeter.innerPie = smallMeter;
-    console.log(denom + "n");
     polymeterLoop = new Tone.Loop(meterLoopCallback(largeMeter, smallMeter), denom + "n");
     polymeterLoop.start();
     Tone.start();
@@ -379,6 +394,9 @@ document.getElementById("startbtn1").onclick = function () {
 document.getElementById("backbtn1").onclick = function () {
 
     Tone.Transport.stop();
+    canvas2.getContext('2d').clearRect(0, 0, canvas2.width, canvas2.height);
+    largeMeter.resetTheta();
+    smallMeter.resetTheta();
     ShowPage(1);
 
 
@@ -418,6 +436,7 @@ function bpmChange(toggle, input) {
     if (toggle.checked == true) {
         console.log("fast tempo");
         Tone.Transport.bpm.value = 120 * Math.floor(input.value);
+
 
     }
     else {
