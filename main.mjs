@@ -3,7 +3,7 @@ console.clear();
 import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats } from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
 import { kick, openHiHat, closedHiHat, hat } from "./sound.mjs"
-import { guest_num, guest_denom, host_num, host_denom, num, denom} from "./polym.mjs"
+import { guest_num, guest_denom, host_num, host_denom, num, denom } from "./polym.mjs"
 
 
 ///
@@ -55,16 +55,16 @@ var largeMeter = new PolyrhythmPie(200, host_num.value, 0, canvas2);
 var polymeterLoop = new Tone.Loop(meterLoopCallback(smallMeter, largeMeter), "4n");
 
 /***    BUTTON LISTENERS    ***/
-guest1.onchange = (guest)=>{
+guest1.onchange = (guest) => {
     if (!guest1.value) guest1.value = 1;
     listenGuest(guest);
     calculate_pie();
     //smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
     //smallPie.currentSub = guest1.value;
     smallPie.setSub(guest1.value);
-    
+
 }
-host1.onchange = (host)=>{
+host1.onchange = (host) => {
     if (!host1.value) host1.value = 1;
     listenHost(host);
     calculate_pie();
@@ -75,67 +75,87 @@ host1.onchange = (host)=>{
 
 
 
-
-function rhythmLoopCallback(pieOut, pieIn){
+function rhythmLoopCallback(pieOut, pieIn) {
     return function (time) {
         if (cnt1 == 0) {
             kick.triggerAttackRelease("C2", "16n");
             hat.triggerAttackRelease("C2", "16n");
             Tone.Draw.schedule(
                 function () {
-                            pieIn.animate({
-                                timing: backEaseOut, duration: 300
-                            });
-                            pieOut.animate({
-                                timing: backEaseOut, duration: 300
-                            })
-                        }, time);
-                } 
-      
-        
+                    pieIn.animate({
+                        timing: backEaseOut, duration: 300
+                    });
+                    pieOut.animate({
+                        timing: backEaseOut, duration: 300
+                    })
+                }, time);
+        }
+
+
 
         else if (guestBeats[cnt1]) {
-            
-            hat.triggerAttackRelease("C2", "16n");               
-                Tone.Draw.schedule(
-                    function () {
-                        pieOut.animate(
-                            {
-                                timing: backEaseOut, duration: 300
-                            }
-                        )
-                    }, time);
+
+            hat.triggerAttackRelease("C2", "16n");
+            Tone.Draw.schedule(
+                function () {
+                    pieOut.animate(
+                        {
+                            timing: backEaseOut, duration: 300
+                        }
+                    )
+                }, time);
         }
 
         else if (hostBeats[cnt1]) {
             kick.triggerAttackRelease("C1", "16n");
-                Tone.Draw.schedule(
-                    function () {
-                        pieIn.animate({timing: backEaseOut, duration: 300})
-                        }, time);
+            Tone.Draw.schedule(
+                function () {
+                    pieIn.animate({ timing: backEaseOut, duration: 300 })
+                }, time);
         }
 
         cnt1++;
-        cnt1 = cnt1%sub;
+        cnt1 = cnt1 % sub;
         console.log(cnt1);
     }
 }
 
 
-function meterLoopCallback(pieOut, pieIn){
+function meterLoopCallback(pieOut, pieIn) {
     return function (time) {
-        console.log("Looping "+ cnt2);
-        Tone.Draw.schedule(function (){
-            console.log("Drawing " + cnt2);
-            pieOut.animate({timing: backEaseOut, duration: 300});
-            pieIn.animate({timing: backEaseOut, duration: 300});
+        var n = guest_denom.value / 4;
+        var m = host_denom.value / 4;
+        Tone.Draw.schedule(function () {
+            if (cnt2 % n == 0) pieIn.animate({ timing: backEaseOut, duration: 200/n });
+            if (cnt2 % m == 0) pieOut.animate({ timing: backEaseOut, duration: 200/m });
         }, time);
+        //play hi hat
+        //
+        if (cnt2%fastest(guest_num.value, guest_denom.value, host_num.value, host_denom.value)==0){
+            kick.triggerAttackRelease("C1", "16n");
+        }
+        if (cnt2%(slowest(guest_num.value, guest_denom.value, host_num.value, host_denom.value)*speedRatio(guest_denom.value, host_denom.value))==0){
+           hat.triggerAttackRelease("C2", "16n")
+        }
         cnt2++;
-        cnt2 = cnt2 % num;
+        cnt2 = cnt2 % denom;
     }
 }
 
+function speedRatio(g, h) {
+    var largeSub = g >= h ? g : h;
+    var smallSub = h <= g ? h : g;
+    return largeSub / smallSub;
+}
 
+function fastest(gn, gd, hn, hd) {
+    var fast = gd >= hd ? gn : hn;
+    return fast;
+}
+function slowest(gn, gd, hn, hd) {
+    var slow = gd <= hd ? gn : hn;
+    return slow;
+}
 
 
 //animation setup
@@ -233,7 +253,7 @@ elementList.forEach(function (element) {
                 }, 3000);
             });
         };
-        
+
 
         if (element == host1) {
             element.addEventListener("mouseover", function () {
@@ -245,7 +265,7 @@ elementList.forEach(function (element) {
             }
             );
         }
-      
+
     };
 });
 
@@ -271,9 +291,9 @@ document.getElementById("startbtn").onclick = function () {
     ShowPage(3);
     polyrhythmLoop.start("+0.01");
     Tone.Transport.start("+1");
-    Tone.Transport.bpm.value = 80*Math.floor(host1.value);
-     console.log(hostBeats.toString());
-     console.log(guestBeats.toString());
+    Tone.Transport.bpm.value = 80 * Math.floor(host1.value);
+    console.log(hostBeats.toString());
+    console.log(guestBeats.toString());
     end = performance.now();
     console.log("Call to do the whole function took " + (end - start) + " milliseconds.");
 };
@@ -285,7 +305,7 @@ document.getElementById("togglebtn").onclick = function () {
 
     }
     else {
-        
+
         document.querySelector("#togglebtn").textContent = "Stop"
         polyrhythmLoop.start();
     }
@@ -315,26 +335,29 @@ document.getElementById("backbtn").onclick = function () {
 
 //POLYMETER PAGE
 document.getElementById("startbtn1").onclick = function () {
-    Tone.Transport.cancel(); 
+    Tone.Transport.cancel();
     start = performance.now();
-    cnt2 = 0;
+    cnt2 = 1;
+    largeMeter.setSub(host_num.value);
+    smallMeter.setSub(guest_num.value);
     largeMeter.innerPie = smallMeter;
-    polymeterLoop = new Tone.Loop(meterLoopCallback(largeMeter, smallMeter), "4n");
+    console.log(denom + "n");
+    polymeterLoop = new Tone.Loop(meterLoopCallback(largeMeter, smallMeter), denom + "n");
     polymeterLoop.start();
     Tone.start();
     ShowPage(4);
     Tone.Transport.start("+1");
     end = performance.now();
     console.log("Call to do the whole function took " + (end - start) + " milliseconds.");
-  };
-  
-  document.getElementById("backbtn1").onclick = function () {
-  
+};
+
+document.getElementById("backbtn1").onclick = function () {
+
     Tone.Transport.stop();
     ShowPage(1);
-  
 
-  };
+
+};
 
 
 
@@ -361,26 +384,27 @@ function makeEaseOut(timing) {
 
 var backEaseOut = makeEaseOut(back);
 
-  //var linEaseOut = makeEaseOut(linear);
+//var linEaseOut = makeEaseOut(linear);
 
-  //BPM POLYRHYTHM
+//BPM POLYRHYTHM
 var bpm1 = document.getElementById("tempo_choose");
 
-function bpmChange(toggle, input){
-    if(toggle.checked == true){
+function bpmChange(toggle, input) {
+    if (toggle.checked == true) {
         console.log("fast tempo");
-        Tone.Transport.bpm.value = 120*Math.floor(input.value);
-        
+        Tone.Transport.bpm.value = 120 * Math.floor(input.value);
+
     }
-    else{
+    else {
         console.log("slow tempo");
-        Tone.Transport.bpm.value = 80*Math.floor(input.value);
-        
+        Tone.Transport.bpm.value = 80 * Math.floor(input.value);
+
     }
 };
 
-bpm1.onclick = function(){
-    bpmChange(bpm1, host1)};
+bpm1.onclick = function () {
+    bpmChange(bpm1, host1)
+};
 
 //COSET
 
@@ -388,19 +412,19 @@ bpm1.onclick = function(){
 
 var coset_toggle = document.getElementById("coset_toggle");
 
-function toggle_coset(){
-    if(coset_toggle.checked == true){
-        coset =!coset;
-        console.log("coset " + coset );
-        
-       
+function toggle_coset() {
+    if (coset_toggle.checked == true) {
+        coset = !coset;
+        console.log("coset " + coset);
+
+
     }
-    else{
-        coset =!coset;
-        smallerPie = new PolyrhythmPie(200/Math.sqrt(3.24), host1.value, 2, canvas);
+    else {
+        coset = !coset;
+        smallerPie = new PolyrhythmPie(200 / Math.sqrt(3.24), host1.value, 2, canvas);
         smallerPie.setSub(host1.value);
         smallPie.innerPie = smallerPie;
-        console.log("coset " + coset );
+        console.log("coset " + coset);
         calculateCoset(false, 1);
         console.log("guest " + hostBeats);
         console.log("host " + guestBeats);
@@ -410,13 +434,13 @@ function toggle_coset(){
 
 
 
-coset_toggle.onclick = function(){
-    coset =! coset;
-    console.log("coset " + coset );
-        calculateCoset(false, 1);
-        console.log(hostBeats.toString());
-        console.log(guestBeats.toString());
-        console.log(cosetBeats.toString());
+coset_toggle.onclick = function () {
+    coset = !coset;
+    console.log("coset " + coset);
+    calculateCoset(false, 1);
+    console.log(hostBeats.toString());
+    console.log(guestBeats.toString());
+    console.log(cosetBeats.toString());
 
 };
 
