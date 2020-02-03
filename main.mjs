@@ -126,30 +126,32 @@ function meterLoopCallback(pieOut, pieIn) {
     return function (time) {
         var n = gd/4;
         var m = hd/4;
-        
-    
+        var inFactor = pieIn.slowerThan(pieOut)? speedRatio(gd, hd): 1;
+        var outFactor = pieOut.slowerThan(pieIn)? speedRatio(gd, hd): 1;
         //console.log(speedRatio(guest_denom.value, host_denom.value));
-        console.log(slowest(gn, gd, hn, hd));
+        
         //play hi hat
         //
-                
-        if (cnt2%fastest(gn, gd, hn, hd)==0){
+        console.log("cnt = " + cnt2);
+        
+        
+        
+        if (cnt2%(inFactor*pieIn.sub)==0){
             s1.triggerAttackRelease("C2", "16n");
         }
-        if (cnt2%(slowest(gn, gd, hn, hd)*speedRatio(gd, hd))==0){  
+        if (cnt2%(outFactor*pieOut.sub)==0){
             s2.triggerAttackRelease("C1", "16n");
 
         }
 
         Tone.Draw.schedule(function () {
-            console.log("cnt = " + cnt2);
-            console.log("M REMAINDER = " + (cnt2 % m == 0));
-            console.log("N REMAINDER = "+ (cnt2 % n == 0));
-            if (cnt2 % n == 0) {
-                pieOut.animate({ timing: backEaseOut, duration: 200/(m**(1.3)) });
+            if (cnt2 % outFactor == 0) {
+                console.log("N REMAINDER = "+ n);
+                pieOut.animate({ timing: backEaseOut, duration: 200/(m**(1.2)) });
             }
-            if (cnt2 % m == 0) {
-                pieIn.animate({ timing: backEaseOut, duration: 200/(n**(1.3)) });
+            if (cnt2 % inFactor == 0) {
+                console.log("M REMAINDER = " + m);
+                pieIn.animate({ timing: backEaseOut, duration: 200/(n**(1.2)) });
             }
             cnt2++;
             cnt2 = cnt2 % num;
@@ -165,14 +167,6 @@ function speedRatio(g, h) {
     /*return (g/h > 1)? g/h: h/g;*/
 }
 
-function fastest(gn, gd, hn, hd) {
-    var fast = gd >= hd ? gn : hn;
-    return fast;
-}
-function slowest(gn, gd, hn, hd) {
-    var slow = hd <= gd ? hn : gn;
-    return slow;
-}
 
 
 //animation setup
@@ -382,7 +376,9 @@ document.getElementById("startbtn1").onclick = function () {
     largeMeter.resetTheta();
     smallMeter.resetTheta();
     largeMeter.setSub(hn);
+    largeMeter.setDenom(hd);
     smallMeter.setSub(gn);
+    smallMeter.setDenom(gd);
     largeMeter.innerPie = smallMeter;
     polymeterLoop = new Tone.Loop(meterLoopCallback(largeMeter, smallMeter), denom + "n");
     polymeterLoop.start();

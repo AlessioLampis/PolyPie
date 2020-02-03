@@ -12,6 +12,7 @@ class PolyrhythmPie {
       this.progress = 0;
       this.innerPie = null;
       this.canvas = canvas;
+      this.denom = null;
     }
 
     setSub(newValue){
@@ -77,6 +78,16 @@ class PolyrhythmPie {
           }
         });
         pie.incrementTheta();
+      }
+
+      setDenom(num) {
+        this.denom = num; 
+      }
+
+      slowerThan(pie) {
+        if (this.denom>=pie.denom) return true;
+        else if(this.denom<pie.denom) return false;
+        else console.log("DENOM NOT DEFINED!");
       }
 }
 
