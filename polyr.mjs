@@ -16,8 +16,8 @@ function listenGuest(guest) { //Guest value input
       guest.value
     );
   
-    if (guest.value > 8) {
-      guest.value = 8;
+    if (guest.value > 32) {
+      guest.value = 32;
       alert("Guest value can't exceed 8");
     }
     if (guest.value == 0) {
@@ -37,8 +37,8 @@ function listenGuest(guest) { //Guest value input
       host.value
     );
   
-    if (host.value > 8) {
-      host.value = 8;
+    if (host.value > 32) {
+      host.value = 32;
       alert("Host value can't exceed 8");
     }
     if (host.value == 0) {
