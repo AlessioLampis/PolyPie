@@ -1,6 +1,13 @@
 var kick = new Tone.MembraneSynth();
 var hat = new Tone.MetalSynth();
 
+var s1 = new Tone.Synth().toMaster();
+var s2 = new Tone.Synth().toMaster();
+var c1 = new Tone.Synth().toMaster();
+var c2 = new Tone.Synth().toMaster();
+var c3 = new Tone.Synth().toMaster();
+var c4 = new Tone.Synth().toMaster();
+
 var closedHiHat = new Tone.NoiseSynth({
     volume : -10,
     filter : {
@@ -61,4 +68,4 @@ hat.chain(gain, reverb, comp);
 //Tone.context.latencyHint = 'fastest';
 //Tone.context.lookAhead = 0;
 
-export{kick, openHiHat, closedHiHat, hat}
+export{ s1, s2, c1, c2, c3, c4}

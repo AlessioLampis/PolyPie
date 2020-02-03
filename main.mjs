@@ -2,7 +2,7 @@ console.clear();
 
 import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats } from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
-import { kick, openHiHat, closedHiHat, hat } from "./sound.mjs"
+import { s1, s2, c1, c2, c3, c4} from "./sound.mjs"
 import { guest_num, guest_denom, host_num, host_denom, num, denom } from "./polym.mjs"
 
 
@@ -79,8 +79,10 @@ host1.onchange = () => {
 function rhythmLoopCallback(pieOut, pieIn) {
     return function (time) {
         if (cnt1 == 0) {
-            kick.triggerAttackRelease("C2", "16n");
-            hat.triggerAttackRelease("C2", "16n");
+            c1.triggerAttackRelease(chord[0], "4n");
+            c2.triggerAttackRelease(chord[1], "4n");
+            c3.triggerAttackRelease(chord[2], "4n");
+            c4.triggerAttackRelease(chord[3], "4n");
             Tone.Draw.schedule(
                 function () {
                     pieIn.animate({
@@ -96,7 +98,7 @@ function rhythmLoopCallback(pieOut, pieIn) {
 
         else if (guestBeats[cnt1]) {
 
-            hat.triggerAttackRelease("C2", "16n");
+            s2.triggerAttackRelease(chord[2],"16n");            
             Tone.Draw.schedule(
                 function () {
                     pieOut.animate(
@@ -108,7 +110,7 @@ function rhythmLoopCallback(pieOut, pieIn) {
         }
 
         else if (hostBeats[cnt1]) {
-            kick.triggerAttackRelease("C1", "16n");
+            s1.triggerAttackRelease(chord[0], "16n");
             Tone.Draw.schedule(
                 function () {
                     pieIn.animate({ timing: backEaseOut, duration: 300 })
@@ -136,7 +138,7 @@ function meterLoopCallback(pieOut, pieIn) {
             kick.triggerAttackRelease("C1", "16n");
         }
         if (cnt2%(slowest(guest_num.value, guest_denom.value, host_num.value, host_denom.value)*speedRatio(guest_denom.value, host_denom.value))==0){
-           hat.triggerAttackRelease("C2", "16n")
+            hat.triggerAttackRelease("G1","16n");
         }
         cnt2++;
         cnt2 = cnt2 % denom;
@@ -335,6 +337,8 @@ document.getElementById("togglebtn").onclick = function () {
 
 document.getElementById("backbtn").onclick = function () {
     // SSET THE BPM TO SLOW
+    bpm1.checked = false;
+    chord = chord1;
     polyrhythmLoop.stop();
     //polyrhythmLoop.dispose();
     Tone.Transport.stop();
@@ -432,17 +436,19 @@ var backEaseOut = makeEaseOut(back);
 
 //BPM POLYRHYTHM
 var bpm1 = document.getElementById("tempo_choose");
-
+var chord1 = ['A2', 'C3', 'E3', 'G3'];
+var chord2 = ['C3', 'E3', 'G3', 'B3'];
+var chord = chord1;
 function bpmChange(toggle, input) {
     if (toggle.checked == true) {
         console.log("fast tempo");
         Tone.Transport.bpm.value = 120 * Math.floor(input.value);
-
+        chord = chord2;
     }
     else {
         console.log("slow tempo");
         Tone.Transport.bpm.value = 80 * Math.floor(input.value);
-
+        chord = chord1;
     }
 };
 
