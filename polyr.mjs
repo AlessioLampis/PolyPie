@@ -58,7 +58,7 @@ function listenGuest(guest) { //Guest value input
       Math.floor(host1.value),
       Math.floor(guest1.value)
     );
-    
+    document.getElementById("result").innerHTML = sub;
   };
 
   

@@ -15,6 +15,7 @@ Tone.context.latencyHint = 'fastest';
 //CANVAS VARIABLES
 const canvas = document.getElementById('myCanvas');
 const canvas2 = document.getElementById('myCanvas2');
+const rcursor = document.getElementById("rcursor");
 
 
 //  Timing variables 
@@ -55,18 +56,18 @@ var largeMeter = new PolyrhythmPie(200, host_num.value, 0, canvas2);
 var polymeterLoop = new Tone.Loop(meterLoopCallback(smallMeter, largeMeter), "4n");
 
 /***    BUTTON LISTENERS    ***/
-guest1.onchange = (guest) => {
+guest1.onchange = () => {
     if (!guest1.value) guest1.value = 1;
-    listenGuest(guest);
+    listenGuest(guest1);
     calculate_pie();
     //smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
     //smallPie.currentSub = guest1.value;
     smallPie.setSub(guest1.value);
 
 }
-host1.onchange = (host) => {
+host1.onchange = () => {
     if (!host1.value) host1.value = 1;
-    listenHost(host);
+    listenHost(host1);
     calculate_pie();
     //largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
     //largePie.currentSub = host1.value;
@@ -236,10 +237,9 @@ function select_button(selector) {
 selectors.forEach(select_button);
 
 //HELPER
-
+var result = document.getElementById("result");
 let helper = true;
 var elementList = [guest1, host1, result];
-
 
 
 elementList.forEach(function (element) {
@@ -266,9 +266,32 @@ elementList.forEach(function (element) {
             );
         }
 
+        if (element == result) {
+            element.addEventListener("mouseover", function () {
+                var x = document.getElementById("snackbarTatum");
+                x.className = "show";
+                setTimeout(function () {
+                    x.className = x.className.replace("show", "");
+                }, 3000);
+            }
+            );
+        }
+
+
     };
 });
 
+//CURSOR ANIMATION
+var rctx = rcursor.getContext("2d");
+//cursor in polyrhythm
+rctx.beginPath();
+rctx.moveTo(210 + 100/Math.sqrt(3), 0);
+rctx.lineTo(210, 100);
+rctx.lineTo(210 - 100/Math.sqrt(3), 0 );
+rctx.closePath();
+rctx.lineWidth =2;
+rctx.strokeStyle = "white";
+rctx.stroke();
 
 
 /////
@@ -312,6 +335,7 @@ document.getElementById("togglebtn").onclick = function () {
 };
 
 document.getElementById("backbtn").onclick = function () {
+    // SSET THE BPM TO SLOW
     polyrhythmLoop.stop();
     //polyrhythmLoop.dispose();
     Tone.Transport.stop();
@@ -335,6 +359,7 @@ document.getElementById("backbtn").onclick = function () {
 
 //POLYMETER PAGE
 document.getElementById("startbtn1").onclick = function () {
+    // SET THE BPM TO A NORMAL VALUE!
     Tone.Transport.cancel();
     start = performance.now();
     cnt2 = 1;

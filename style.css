@@ -209,7 +209,7 @@ svg path {
   padding: 0 0px 0 2px;
   margin: 0;
   text-align: center;
-  width: 30px;
+  width: 70px;
 }
 .page .Quantity input:focus {
   outline: 0;
@@ -308,7 +308,7 @@ svg path {
 .page4{
   width: 800px;
   float: left; 
-
+ margin-top : 10%;
 }
 
 #startbtn{
@@ -396,6 +396,106 @@ flex:auto;
 
 }
 
+/*POLYMETER PAGE*/
+.pl_mn{
+  font-size: 30px;
+  text-align: center;
+}
+
+.plmn1{
+  position: relative;
+  left: -30%;
+  top: 30%;
+}
+
+.plmn2{
+  position: relative;
+  left: 30%;
+  top: 80%;
+}
+
+.plmn3{
+  position: relative;
+  left: -30%;
+  top: 30%;
+}
+
+.plmn4{
+  position: relative;
+  left: 30%;
+  top: 30%;
+}
+
+.slash{
+  font-size: 60px;
+  font-weight: 100px;
+}
+
+.result2{
+  display: inline-block;
+  color: #dce1d5;
+  border-radius: 2px;
+  background: transparent;
+  border: solid 0px #b7b7b7;
+  font-family: "Source Code Pro", monospace;
+  font-size: 20px;
+  font-weight: 20px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 0px 0 2px;
+  margin: 0;
+  text-align: center;
+  width: 30px;
+}
+
+.page5 {
+  width: 800px;
+  float: left; 
+}
+#startbtn1{
+  position: relative;
+  background-color: #dce1d5;
+  color: black;
+  padding: 3px 10px;
+  font-family: "Source Code Pro", monospace;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  margin: 0px 0px 5px;
+  font-size: 16px;
+  float: center;
+  cursor: pointer; 
+}
+
+#startbtn1:hover{
+  background: black;
+  border: 1px solid black;
+  box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
+  color: #dce1d5;
+  text-decoration: none;
+  transition: all 250ms linear; 
+}
+
+#backbtn1{
+  margin: 25px 0px;
+  background-color: #dce1d5;
+  color: black;
+  font-size: 16px;
+  cursor: pointer; 
+  z-index: 2;
+  width: 90px;
+margin-left:35%;
+}
+
+#backbtn1:hover{
+  background: black;
+  border: 1px solid black;
+  box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
+  color: #dce1d5;
+  text-decoration: none;
+  transition: all 250ms linear; 
+}
+
 
 
 .slider {
@@ -451,6 +551,11 @@ input:checked + .slider:before {
   color: #dce1d5;
   line-height: 3;
 }
+
+.second{
+  font-size: 20px;
+}
+
 
 #togglebtn{
   position: relative;
@@ -637,16 +742,16 @@ canvas {
 #snackbarGuest {
   visibility: hidden;
   min-width: 20px;
-  margin-left: -225px;
-  background-color: black;
-  color: #dce1d5;
+  margin-left: 80px;
+  background-color: black; 
+  color:#dce1d5;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   left: 50%;
-  bottom: 20%;
+  bottom: 33vh;
   font-size: 12px;
 }
 
@@ -660,15 +765,15 @@ canvas {
   visibility: hidden;
   min-width: 20px;
   margin-left: 80px;
-  background-color: black;
+  background-color: black; 
   color:#dce1d5;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   left: 50%;
-  bottom: 20%;
+  bottom: 14vh;
   font-size: 12px;
 }
 
@@ -680,17 +785,16 @@ canvas {
 
 #snackbarTatum {
   visibility: hidden;
-  min-width: 20px;
-  margin-left: 80px;
-  background-color: black;
-  color: #dce1d5;
+  max-width: 100px;
+  margin-left: 30px;
+  background-color: black; 
+  color:#dce1d5;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  left: 50%;
-  bottom: 40%;
+  bottom: 20vh;
   font-size: 12px;
 }
 
