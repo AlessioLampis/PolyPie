@@ -136,20 +136,20 @@ function meterLoopCallback(pieOut, pieIn) {
         
         
         
-        if (cnt2%(inFactor*pieIn.sub)==0){
+        if (cnt2%(inFactor*pieOut.sub)==0){
             s1.triggerAttackRelease("C2", "16n");
         }
-        if (cnt2%(outFactor*pieOut.sub)==0){
+        if (cnt2%(outFactor*pieIn.sub)==0){
             s2.triggerAttackRelease("C1", "16n");
 
         }
 
         Tone.Draw.schedule(function () {
-            if (cnt2 % outFactor == 0) {
+            if (cnt2 % inFactor == 0) {
                 console.log("N REMAINDER = "+ n);
                 pieOut.animate({ timing: backEaseOut, duration: 200/(m**(1.2)) });
             }
-            if (cnt2 % inFactor == 0) {
+            if (cnt2 % outFactor == 0) {
                 console.log("M REMAINDER = " + m);
                 pieIn.animate({ timing: backEaseOut, duration: 200/(n**(1.2)) });
             }
