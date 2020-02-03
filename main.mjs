@@ -3,7 +3,7 @@ console.clear();
 import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats } from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
 import{ s1, s2, c1, c2, c3, c4} from "./sound.mjs"
-import { guest_num, guest_denom, host_num, host_denom, num, denom } from "./polym.mjs"
+import { gn, gd, hn, hd, num, denom} from "./polym.mjs"
 
 
 ///
@@ -50,8 +50,8 @@ var largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
 
 var polyrhythmLoop = new Tone.Loop(rhythmLoopCallback(largePie, smallPie, smallerPie, coset), "4n"); // the coset parameters are useless for now
 
-var smallMeter = new PolyrhythmPie(200 / Math.sqrt(1.62), guest_num.value, 1, canvas2);
-var largeMeter = new PolyrhythmPie(200, host_num.value, 0, canvas2);
+var smallMeter = new PolyrhythmPie(200 / Math.sqrt(1.62), gn, 1, canvas2);
+var largeMeter = new PolyrhythmPie(200, hn, 0, canvas2);
 
 var polymeterLoop = new Tone.Loop(meterLoopCallback(smallMeter, largeMeter), "4n");
 
@@ -124,45 +124,45 @@ function rhythmLoopCallback(pieOut, pieIn) {
 
 function meterLoopCallback(pieOut, pieIn) {
     return function (time) {
-        var n = Math.floor(guest_denom.value / 4);
-        var m = Math.floor(host_denom.value / 4);
-        Tone.Draw.schedule(function () {
-            
-            if (cnt2 % m == 0) {
-                pieIn.animate({ timing: backEaseOut, duration: 200/(n**(1.3)) });
-            }
-            if (cnt2 % n == 0) {
-
-                pieOut.animate({ timing: backEaseOut, duration: 200/(m**(1.3)) });
-        }
-        }, time);
+        var n = gd/4;
+        var m = hd/4;
+        
     
         //console.log(speedRatio(guest_denom.value, host_denom.value));
-        console.log(slowest(guest_num.value, guest_denom.value, host_num.value, host_denom.value));
+        console.log(slowest(gn, gd, hn, hd));
         //play hi hat
         //
-        
-        
-        if (cnt2%fastest(guest_num.value, guest_denom.value, host_num.value, host_denom.value)==0){
+                
+        if (cnt2%fastest(gn, gd, hn, hd)==0){
             s1.triggerAttackRelease("C2", "16n");
-            //console.log("fast play") ;  
-
         }
-        if (cnt2%(slowest(guest_num.value, guest_denom.value, host_num.value, host_denom.value)*speedRatio(guest_denom.value, host_denom.value))==0){
-            console.log("slow play") ;  
+        if (cnt2%(slowest(gn, gd, hn, hd)*speedRatio(gd, hd))==0){  
             s2.triggerAttackRelease("C1", "16n");
 
         }
-        cnt2++;
-        cnt2 = cnt2 % num;
+
+        Tone.Draw.schedule(function () {
+            console.log("cnt = " + cnt2);
+            console.log("M REMAINDER = " + (cnt2 % m == 0));
+            console.log("N REMAINDER = "+ (cnt2 % n == 0));
+            if (cnt2 % n == 0) {
+                pieOut.animate({ timing: backEaseOut, duration: 200/(m**(1.3)) });
+            }
+            if (cnt2 % m == 0) {
+                pieIn.animate({ timing: backEaseOut, duration: 200/(n**(1.3)) });
+            }
+            cnt2++;
+            cnt2 = cnt2 % num;
+        }, time);
+        
     }
 }
 
 function speedRatio(g, h) {
-    /*var largeSub = g >= h ? g : h;
+    var largeSub = g >= h ? g : h;
     var smallSub = h <= g ? h : g;
-    return largeSub / smallSub;*/
-    return (g/h > 1)? g/h: h/g;
+    return largeSub / smallSub;
+    /*return (g/h > 1)? g/h: h/g;*/
 }
 
 function fastest(gn, gd, hn, hd) {
@@ -379,8 +379,10 @@ document.getElementById("startbtn1").onclick = function () {
     Tone.Transport.bpm.value = 100;
     start = performance.now();
     cnt2 = 0;
-    largeMeter.setSub(host_num.value);
-    smallMeter.setSub(guest_num.value);
+    largeMeter.resetTheta();
+    smallMeter.resetTheta();
+    largeMeter.setSub(hn);
+    smallMeter.setSub(gn);
     largeMeter.innerPie = smallMeter;
     polymeterLoop = new Tone.Loop(meterLoopCallback(largeMeter, smallMeter), denom + "n");
     polymeterLoop.start();
@@ -395,8 +397,7 @@ document.getElementById("backbtn1").onclick = function () {
 
     Tone.Transport.stop();
     canvas2.getContext('2d').clearRect(0, 0, canvas2.width, canvas2.height);
-    largeMeter.resetTheta();
-    smallMeter.resetTheta();
+    
     ShowPage(1);
 
 

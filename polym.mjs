@@ -7,6 +7,10 @@ var n1, n2, d1, d2, k1, k2, nk1, nk2, d, n;
 var num = 1;
 var denom = 4;
 
+var gn = Math.floor(guest_num.value);
+var gd = Math.floor(guest_denom.value);
+var hn = Math.floor(host_num.value);
+var hd = Math.floor(host_denom.value);
 
 /*guest_num.value = num;
 guest_denom.value = denom;
@@ -27,6 +31,10 @@ document.querySelector(".minus1").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 
 document.querySelector(".plus1").onclick = function () {
@@ -40,6 +48,10 @@ document.querySelector(".plus1").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 //}
 
@@ -59,6 +71,10 @@ document.querySelector(".minus2").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 
 document.querySelector(".plus2").onclick = function () {
@@ -75,6 +91,10 @@ document.querySelector(".plus2").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 //}
 
@@ -90,6 +110,10 @@ document.querySelector(".minus3").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 
 document.querySelector(".plus3").onclick = function () {
@@ -103,6 +127,10 @@ document.querySelector(".plus3").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 //}
 
@@ -122,6 +150,10 @@ document.querySelector(".minus4").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 
 document.querySelector(".plus4").onclick = function () {
@@ -138,6 +170,10 @@ document.querySelector(".plus4").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 //}
 
@@ -192,4 +228,4 @@ function measure_denom(guest_denom, host_denom) {
 
 
 
-export { guest_num, guest_denom, host_num, host_denom, num, denom}
+export { gn, gd, hn, hd, num, denom}
