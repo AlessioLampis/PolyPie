@@ -49,8 +49,9 @@ listenHost(host1);
 calculate_pie();
 var smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas);
 var largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
+var cosetPie = new PolyrhythmPie(200 / Math.sqrt(3.24), gn, 2, canvas);
 
-var polyrhythmLoop = new Tone.Loop(rhythmLoopCallback(largePie, smallPie, smallerPie, coset), "4n"); // the coset parameters are useless for now
+var polyrhythmLoop = new Tone.Loop(rhythmLoopCallback(largePie, smallPie, cosetPie, coset), "4n"); // the coset parameters are useless for now
 
 var smallMeter = new PolyrhythmPie(200 / Math.sqrt(1.62), gn, 1, canvas2);
 var largeMeter = new PolyrhythmPie(200, hn, 0, canvas2);
@@ -80,7 +81,7 @@ host1.onchange = () => {
 
 
 
-function rhythmLoopCallback(pieOut, pieIn) {
+function rhythmLoopCallback(pieOut, pieIn, smallerPie) {
     return function (time) {
         if (cnt1 == 0) {
             flashCursor(rcursor, "flashTogether");
@@ -384,6 +385,7 @@ document.getElementById("backbtn").onclick = function () {
     cnt1 = 0;
     largePie.resetTheta();
     smallPie.resetTheta();
+    ShowPage(0);
     
 
 };
