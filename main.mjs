@@ -1,4 +1,5 @@
 console.clear();
+"use strict";
 
 import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats } from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
@@ -15,7 +16,7 @@ Tone.context.latencyHint = 'fastest';
 //CANVAS VARIABLES
 const canvas = document.getElementById('myCanvas');
 const canvas2 = document.getElementById('myCanvas2');
-const rcursor = document.getElementById("rcursor");
+//const rcursor = document.getElementById("rcursor");
 
 
 //  Timing variables 
@@ -79,8 +80,8 @@ host1.onchange = () => {
 function rhythmLoopCallback(pieOut, pieIn) {
     return function (time) {
         if (cnt1 == 0) {
-            kick.triggerAttackRelease("C2", "16n");
-            hat.triggerAttackRelease("C2", "16n");
+            s2.triggerAttackRelease("C2", "16n");
+            s1.triggerAttackRelease("C2", "16n");
             Tone.Draw.schedule(
                 function () {
                     pieIn.animate({
@@ -96,7 +97,7 @@ function rhythmLoopCallback(pieOut, pieIn) {
 
         else if (guestBeats[cnt1]) {
 
-            hat.triggerAttackRelease("C2", "16n");
+            s1.triggerAttackRelease("C2", "16n");
             Tone.Draw.schedule(
                 function () {
                     pieOut.animate(
@@ -105,10 +106,11 @@ function rhythmLoopCallback(pieOut, pieIn) {
                         }
                     )
                 }, time);
+                
         }
 
         else if (hostBeats[cnt1]) {
-            kick.triggerAttackRelease("C1", "16n");
+            s2.triggerAttackRelease("C1", "16n");
             Tone.Draw.schedule(
                 function () {
                     pieIn.animate({ timing: backEaseOut, duration: 300 })
@@ -292,6 +294,7 @@ elementList.forEach(function (element) {
 });
 
 //CURSOR ANIMATION
+/*
 var rctx = rcursor.getContext("2d");
 //cursor in polyrhythm
 rctx.beginPath();
@@ -301,7 +304,7 @@ rctx.lineTo(210 - 100/Math.sqrt(3), 0 );
 rctx.closePath();
 rctx.lineWidth =2;
 rctx.strokeStyle = "white";
-rctx.stroke();
+rctx.stroke();*/
 
 
 /////

@@ -637,9 +637,57 @@ input:checked + .slider:before {
   transition: all 250ms linear;
 }
 
+/*CURSOR*/
+.cursor{
+  width: 0;
+  height: 0;
+  margin-left: 190px;
+  border-style: solid;
+  border-width: 95.3px 55px 0 55px;
+  border-color: black transparent transparent transparent;
+}
+.flashHost{
+  border-color: #9C5400 transparent transparent transparent;
+  -webkit-animation: flash 50ms ease-out ;
+  animation: flash 50ms ease-out ;
+}
 
+.flashGuest{
+  border-color: #9C2100 transparent transparent transparent;
+  -webkit-animation: flash 50ms ease-out ;
+  animation: flash 50ms ease-out ;
+}
+
+.flashTogether{
+  border-color: white transparent transparent transparent;
+  -webkit-animation: flash 50ms ease-out ;
+  animation: flash 50ms ease-out ;
+}
 
 /* ANIMATIONS */
+@-webkit-keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
 @-webkit-keyframes logo {
   from {
     opacity: 0;
