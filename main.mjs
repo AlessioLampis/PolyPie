@@ -54,6 +54,7 @@ var polyrhythmLoop = new Tone.Loop(rhythmLoopCallback(largePie, smallPie, smalle
 
 var smallMeter = new PolyrhythmPie(200 / Math.sqrt(1.62), gn, 1, canvas2);
 var largeMeter = new PolyrhythmPie(200, hn, 0, canvas2);
+var cosetMeter = new PolyrhythmPie(200 / Math.sqrt(3.24), gn, 2, canvas2);
 
 var polymeterLoop = new Tone.Loop(meterLoopCallback(smallMeter, largeMeter), "4n");
 
@@ -129,10 +130,11 @@ function rhythmLoopCallback(pieOut, pieIn) {
 }
 
 
-function meterLoopCallback(pieOut, pieIn) {
+function meterLoopCallback(pieOut, pieIn, pieCos) {
     return function (time) {
         var n = gd/4;
         var m = hd/4;
+        var shiftMax = cosetMeter.sub;
         var inFactor = pieIn.slowerThan(pieOut)? speedRatio(gd, hd): 1;
         var outFactor = pieOut.slowerThan(pieIn)? speedRatio(gd, hd): 1;
         //console.log(speedRatio(guest_denom.value, host_denom.value));
@@ -161,12 +163,14 @@ function meterLoopCallback(pieOut, pieIn) {
 
         Tone.Draw.schedule(function () {
             if (cnt2 % inFactor == 0) {
-                console.log("N REMAINDER = "+ n);
+             //console.log("N REMAINDER = "+ n);
                 pieOut.animate({ timing: backEaseOut, duration: 200/(m**(1.2)) });
+                if(shiftMax == pieOut.sub) pieCos.animate({ timing: backEaseOut, duration: 200/(m**(1.2)) });
             }
             if (cnt2 % outFactor == 0) {
-                console.log("M REMAINDER = " + m);
+                //console.log("M REMAINDER = " + m);
                 pieIn.animate({ timing: backEaseOut, duration: 200/(n**(1.2)) });
+                if(shiftMax == pieIn.sub) pieCos.animate({ timing: backEaseOut, duration: 200/(n**(1.2)) });
             }
             cnt2++;
             cnt2 = cnt2 % num;
@@ -370,8 +374,8 @@ document.getElementById("backbtn").onclick = function () {
 
 
     if (document.querySelector("#togglebtn").textContent == "Stop") {
-
-        polyrhythmLoop.start();
+        document.querySelector("#togglebtn").textContent = "Start";
+        //polyrhythmLoop.start();
         ShowPage(0);
         Tone.Transport.stop()
     }
@@ -392,8 +396,11 @@ document.getElementById("startbtn1").onclick = function () {
     largeMeter.setDenom(hd);
     smallMeter.setSub(gn);
     smallMeter.setDenom(gd);
+    cosetMeter.setSub(gn);
+    cosetMeter.setDenom(gd);
     largeMeter.innerPie = smallMeter;
-    polymeterLoop = new Tone.Loop(meterLoopCallback(largeMeter, smallMeter), denom + "n");
+    smallMeter.innerPie = cosetMeter;
+    polymeterLoop = new Tone.Loop(meterLoopCallback(largeMeter, smallMeter, cosetMeter), denom + "n");
     polymeterLoop.start();
     Tone.start();
     ShowPage(4);
@@ -402,6 +409,20 @@ document.getElementById("startbtn1").onclick = function () {
     console.log("Call to do the whole function took " + (end - start) + " milliseconds.");
 };
 
+document.getElementById("togglebtn1").onclick = function () {
+    if (document.querySelector("#togglebtn1").textContent == "Stop") {
+        polymeterLoop.stop();
+        document.querySelector("#togglebtn1").textContent = "Start";
+
+    }
+    else {
+
+        document.querySelector("#togglebtn1").textContent = "Stop"
+        polymeterLoop.start();
+    }
+};
+
+
 document.getElementById("backbtn1").onclick = function () {
 
     Tone.Transport.stop();
@@ -409,9 +430,18 @@ document.getElementById("backbtn1").onclick = function () {
     
     ShowPage(1);
 
+    if (document.querySelector("#togglebtn1").textContent == "Stop") {
+
+        polymeterLoop.start();
+        ShowPage(1);
+        Tone.Transport.stop()
+    }
+    else {
+        ShowPage(1);
+    }
+
 
 };
-
 
 
 
@@ -440,6 +470,7 @@ var backEaseOut = makeEaseOut(back);
 //var linEaseOut = makeEaseOut(linear);
 
 //BPM POLYRHYTHM
+
 var bpm1 = document.getElementById("tempo_choose");
 var chord1 = ['A2', 'C3', 'E3', 'G3'];
 var chord2 = ['C3', 'E3', 'G3', 'B3'];
@@ -465,8 +496,27 @@ bpm1.onclick = function () {
 //COSET
 
 //smallerPie.animate({timing: backEaseOut, duration: 300})
+var setCoset = true;
+var cosetChoose = document.getElementById("coset_chose1");
 
-var coset_toggle = document.getElementById("coset_toggle");
+document.getElementById('removeCoset1').onclick = function (){
+    let gamma = (cosetMeter.alpha*(cosetMeter.sub-2) -Math.PI/2);
+
+    cosetMeter.theta -= cosetMeter.alpha;
+    if(cosetMeter.theta<gamma) cosetMeter.theta = gamma + (2*Math.PI) - cosetMeter.theta - cosetMeter.alpha/2;
+
+    if(polymeterLoop.state === "stopped"){
+        cosetMeter.draw(cosetMeter.progress);
+    }
+}
+
+document.getElementById('addCoset1').onclick = function (){
+    cosetMeter.incrementTheta();
+
+    if(polymeterLoop.state === "stopped"){
+        cosetMeter.draw(cosetMeter.progress);
+    }
+}
 
 function toggle_coset() {
     if (coset_toggle.checked == true) {
@@ -490,13 +540,25 @@ function toggle_coset() {
 
 
 
-coset_toggle.onclick = function () {
-    coset = !coset;
-    console.log("coset " + coset);
-    calculateCoset(false, 1);
-    console.log(hostBeats.toString());
-    console.log(guestBeats.toString());
-    console.log(cosetBeats.toString());
+cosetChoose.onclick = function () {
+    if (cosetChoose.checked) {
+        setCoset = !setCoset;
+        cosetMeter.setSub(hn);
+        cosetMeter.progress = largeMeter.progress;
 
+
+    }
+    else {
+        setCoset = !setCoset;
+        cosetMeter.setSub(gn);
+        cosetMeter.progress = smallMeter.progress;
+    }
+
+    if(polymeterLoop.state === "stopped"){
+        cosetMeter.draw(cosetMeter.progress);
+    }
 };
+
+
+
 

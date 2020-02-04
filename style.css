@@ -571,7 +571,32 @@ input:checked + .slider:before {
   float: center;
   cursor: pointer; 
 }
+
+#togglebtn1{
+  position: relative;
+  background-color: #dce1d5;
+  color: black;
+  padding: 3px 10px;
+  font-family: "Source Code Pro", monospace;
+
+  text-align: center;
+  text-decoration: none;
+  margin: 0px 0px 5px;
+  font-size: 16px;
+  float: center;
+  cursor: pointer; 
+}
+
 #togglebtn:hover{
+  background: black;
+  border: 1px solid black;
+  box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
+  color: #dce1d5;
+  text-decoration: none;
+  transition: all 250ms linear; 
+}
+
+#togglebtn1:hover{
   background: black;
   border: 1px solid black;
   box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
