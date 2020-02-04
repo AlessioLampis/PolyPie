@@ -373,9 +373,21 @@ margin-left:35%;
   flex-direction: row;
 }
 
+.add_coset{
+  font-size: 35px ;
+  border: thin solid white;
+  flex: auto;
+  cursor: pointer;
+}
 
+.remove_coset{
+  font-size: 35px;
+  border: thin solid white;
+  flex: auto;
+  cursor: pointer;
+}
 
-.slow_tempo, .fast_tempo, .remove_coset, .add_coset,
+.slow_tempo, .fast_tempo,
 .coset_guest, .coset_host, .coset_on, .coset_off
 {
 flex:auto;

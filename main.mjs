@@ -56,6 +56,7 @@ var smallMeter = new PolyrhythmPie(200 / Math.sqrt(1.62), gn, 1, canvas2);
 var largeMeter = new PolyrhythmPie(200, hn, 0, canvas2);
 var cosetMeter = new PolyrhythmPie(200 / Math.sqrt(3.24), gn, 2, canvas2);
 
+var polymeterShift = 0;
 var polymeterLoop = new Tone.Loop(meterLoopCallback(smallMeter, largeMeter), "4n");
 
 /***    BUTTON LISTENERS    ***/
@@ -134,7 +135,6 @@ function meterLoopCallback(pieOut, pieIn, pieCos) {
     return function (time) {
         var n = gd/4;
         var m = hd/4;
-        var shiftMax = cosetMeter.sub;
         var inFactor = pieIn.slowerThan(pieOut)? speedRatio(gd, hd): 1;
         var outFactor = pieOut.slowerThan(pieIn)? speedRatio(gd, hd): 1;
         //console.log(speedRatio(guest_denom.value, host_denom.value));
@@ -153,24 +153,37 @@ function meterLoopCallback(pieOut, pieIn, pieCos) {
         }
 
         
-        else if (cnt2%(inFactor*pieOut.sub)==0){
-            s1.triggerAttackRelease(chord[1], "16n");
+        else if (cnt2%(outFactor*pieOut.sub)==0){
+            s1.triggerAttackRelease(chord[0], "16n");   //HOST
         }
-        else if (cnt2%(outFactor*pieIn.sub)==0){
-            s2.triggerAttackRelease(chord[2], "16n");
+        else if (cnt2%(inFactor*pieIn.sub)==0){
+            s2.triggerAttackRelease(chord[2], "16n");   //GUEST
+        }
 
+        if(setCoset && cnt2%(inFactor*pieIn.sub) == polymeterShift*inFactor && cosetOnOff.checked){
+            s3.triggerAttackRelease(chord[1], "16n");       //PLAYS WITH THE GUEST
+        }
+
+        if(!setCoset && cnt2%(outFactor*pieOut.sub) == polymeterShift*outFactor && cosetOnOff.checked){
+            s3.triggerAttackRelease(chord[1], "16n");       //PLAYS WITH THE HOST
         }
 
         Tone.Draw.schedule(function () {
-            if (cnt2 % inFactor == 0) {
+            if (cnt2 % outFactor == 0) {
              //console.log("N REMAINDER = "+ n);
                 pieOut.animate({ timing: backEaseOut, duration: 200/(m**(1.2)) });
-                if(shiftMax == pieOut.sub) pieCos.animate({ timing: backEaseOut, duration: 200/(m**(1.2)) });
+                if(!setCoset && cosetOnOff.checked){
+                    pieCos.animate({ timing: backEaseOut, duration: 200/(m**(1.2)) });
+                }
+                else if (!setCoset && !cosetOnOff.checked){pieCos.incrementTheta(); }
             }
-            if (cnt2 % outFactor == 0) {
+            if (cnt2 % inFactor == 0) {
                 //console.log("M REMAINDER = " + m);
                 pieIn.animate({ timing: backEaseOut, duration: 200/(n**(1.2)) });
-                if(shiftMax == pieIn.sub) pieCos.animate({ timing: backEaseOut, duration: 200/(n**(1.2)) });
+                if(setCoset && cosetOnOff.checked){
+                    pieCos.animate({ timing: backEaseOut, duration: 200/(n**(1.2)) });
+                }
+                else if (setCoset && !cosetOnOff.checked){pieCos.incrementTheta();}
             }
             cnt2++;
             cnt2 = cnt2 % num;
@@ -392,14 +405,17 @@ document.getElementById("startbtn1").onclick = function () {
     cnt2 = 0;
     largeMeter.resetTheta();
     smallMeter.resetTheta();
+    cosetMeter.resetTheta();
     largeMeter.setSub(hn);
     largeMeter.setDenom(hd);
     smallMeter.setSub(gn);
     smallMeter.setDenom(gd);
+    //cosetMeter.setSub(cosetChoose.checked? hn: gn);
+    //cosetMeter.setDenom(cosetChoose.checked? hd: gd);
     cosetMeter.setSub(gn);
     cosetMeter.setDenom(gd);
     largeMeter.innerPie = smallMeter;
-    smallMeter.innerPie = cosetMeter;
+    
     polymeterLoop = new Tone.Loop(meterLoopCallback(largeMeter, smallMeter, cosetMeter), denom + "n");
     polymeterLoop.start();
     Tone.start();
@@ -472,6 +488,7 @@ var backEaseOut = makeEaseOut(back);
 //BPM POLYRHYTHM
 
 var bpm1 = document.getElementById("tempo_choose");
+var bpm2 = document.getElementById("tempo_choose1");
 var chord1 = ['A2', 'C3', 'E3', 'G3'];
 var chord2 = ['C3', 'E3', 'G3', 'B3'];
 var chord = chord1;
@@ -479,19 +496,24 @@ var chord = chord1;
 function bpmChange(toggle, input) {
     if (toggle.checked == true) {
         console.log("fast tempo");
-        Tone.Transport.bpm.value = 120 * Math.floor(input.value);
+        Tone.Transport.bpm.value = 120 * Math.floor(input);
         chord = chord2;
     }
     else {
         console.log("slow tempo");
-        Tone.Transport.bpm.value = 80 * Math.floor(input.value);
+        Tone.Transport.bpm.value = 80 * Math.floor(input);
         chord = chord1;
     }
 };
 
 bpm1.onclick = function () {
-    bpmChange(bpm1, host1)
+    bpmChange(bpm1, host1.value)
 };
+
+bpm2.onclick = function () {
+    bpmChange(bpm2, 1)
+};
+
 
 //COSET
 
@@ -503,17 +525,21 @@ document.getElementById('removeCoset1').onclick = function (){
     let gamma = (cosetMeter.alpha*(cosetMeter.sub-2) -Math.PI/2);
 
     cosetMeter.theta -= cosetMeter.alpha;
-    if(cosetMeter.theta<gamma) cosetMeter.theta = gamma + (2*Math.PI) - cosetMeter.theta - cosetMeter.alpha/2;
+    polymeterShift++;
+    polymeterShift = polymeterShift%cosetMeter.sub;
 
-    if(polymeterLoop.state === "stopped"){
+    if(polymeterLoop.state === "stopped" && cosetOnOff.checked){
         cosetMeter.draw(cosetMeter.progress);
     }
 }
 
 document.getElementById('addCoset1').onclick = function (){
     cosetMeter.incrementTheta();
+    
+    polymeterShift--;
+    if (polymeterShift<0) polymeterShift = cosetMeter.sub-1;
 
-    if(polymeterLoop.state === "stopped"){
+    if(polymeterLoop.state === "stopped" && cosetOnOff.checked){
         cosetMeter.draw(cosetMeter.progress);
     }
 }
@@ -541,24 +567,35 @@ function toggle_coset() {
 
 
 cosetChoose.onclick = function () {
+    setCoset = !setCoset;
+    polymeterShift = 0;
     if (cosetChoose.checked) {
-        setCoset = !setCoset;
         cosetMeter.setSub(hn);
+        cosetMeter.theta = largeMeter.theta;
         cosetMeter.progress = largeMeter.progress;
-
-
     }
     else {
-        setCoset = !setCoset;
         cosetMeter.setSub(gn);
+        cosetMeter.theta = smallMeter.theta;
         cosetMeter.progress = smallMeter.progress;
     }
 
-    if(polymeterLoop.state === "stopped"){
+    if(polymeterLoop.state === "stopped" && cosetOnOff.checked){
         cosetMeter.draw(cosetMeter.progress);
     }
 };
 
+var cosetOnOff = document.getElementById("coset_toggle1");
 
-
-
+cosetOnOff.onclick = ()=>{
+    if(cosetOnOff.checked){
+        smallMeter.innerPie = cosetMeter;
+        /*cosetMeter.theta = smallMeter.theta;
+        cosetMeter.progress = smallMeter.progress;*/
+        if(polymeterLoop.state === "stopped") smallMeter.draw(smallMeter.progress);
+    }
+    else {
+        smallMeter.innerPie = null;
+        if(polymeterLoop.state === "stopped") smallMeter.draw(smallMeter.progress);
+    }
+}

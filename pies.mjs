@@ -85,8 +85,8 @@ class PolyrhythmPie {
       }
 
       slowerThan(pie) {
-        if (this.denom>=pie.denom) return true;
-        else if(this.denom<pie.denom) return false;
+        if (this.denom>=pie.denom) return false;
+        else if(this.denom<pie.denom) return true;
         else console.log("DENOM NOT DEFINED!");
       }
 }
