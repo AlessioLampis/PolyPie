@@ -1,9 +1,9 @@
 var kick = new Tone.MembraneSynth();
 var hat = new Tone.MetalSynth();
 
-
 var s1 = new Tone.Synth().toMaster();
 var s2 = new Tone.Synth().toMaster();
+var s3 = new Tone.Synth().toMaster();
 var c1 = new Tone.Synth().toMaster();
 var c2 = new Tone.Synth().toMaster();
 var c3 = new Tone.Synth().toMaster();
@@ -69,4 +69,4 @@ hat.chain(gain, reverb, comp);
 //Tone.context.latencyHint = 'fastest';
 //Tone.context.lookAhead = 0;
 
-export{ s1, s2, c1, c2, c3, c4}
+export{ s1, s2, s3, c1, c2, c3, c4}

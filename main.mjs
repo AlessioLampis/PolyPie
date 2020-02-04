@@ -3,7 +3,7 @@ console.clear();
 
 import { calculate_pie, hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats } from "./polyr.mjs"
 import { PolyrhythmPie } from "./pies.mjs"
-import{ s1, s2, c1, c2, c3, c4} from "./sound.mjs"
+import{ s1, s2, s3, c1, c2, c3, c4} from "./sound.mjs"
 import { gn, gd, hn, hd, num, denom} from "./polym.mjs"
 
 
@@ -16,7 +16,8 @@ Tone.context.latencyHint = 'fastest';
 //CANVAS VARIABLES
 const canvas = document.getElementById('myCanvas');
 const canvas2 = document.getElementById('myCanvas2');
-//const rcursor = document.getElementById("rcursor");
+const rcursor = document.getElementById("cursor");
+const mcursor = document.getElementById("cursor1");
 
 
 //  Timing variables 
@@ -80,8 +81,11 @@ host1.onchange = () => {
 function rhythmLoopCallback(pieOut, pieIn) {
     return function (time) {
         if (cnt1 == 0) {
-            s2.triggerAttackRelease("C2", "16n");
-            s1.triggerAttackRelease("C2", "16n");
+            flashCursor(rcursor, "flashTogether");
+            c1.triggerAttackRelease(chord[0], "4n");
+            c2.triggerAttackRelease(chord[1], "4n");
+            c3.triggerAttackRelease(chord[2], "4n");
+            c4.triggerAttackRelease(chord[3], "4n");
             Tone.Draw.schedule(
                 function () {
                     pieIn.animate({
@@ -96,8 +100,8 @@ function rhythmLoopCallback(pieOut, pieIn) {
 
 
         else if (guestBeats[cnt1]) {
-
-            s1.triggerAttackRelease("C2", "16n");
+            flashCursor(rcursor, "flashGuest");
+            s2.triggerAttackRelease(chord[2],"16n");
             Tone.Draw.schedule(
                 function () {
                     pieOut.animate(
@@ -110,7 +114,8 @@ function rhythmLoopCallback(pieOut, pieIn) {
         }
 
         else if (hostBeats[cnt1]) {
-            s2.triggerAttackRelease("C1", "16n");
+            flashCursor(rcursor, "flashHost");
+            s1.triggerAttackRelease(chord[0],"16n");
             Tone.Draw.schedule(
                 function () {
                     pieIn.animate({ timing: backEaseOut, duration: 300 })
@@ -135,14 +140,22 @@ function meterLoopCallback(pieOut, pieIn) {
         //play hi hat
         //
         console.log("cnt = " + cnt2);
-        
-        
-        
-        if (cnt2%(inFactor*pieOut.sub)==0){
-            s1.triggerAttackRelease("C2", "16n");
+        //s3.triggerAttackRelease(chord[2], "64n");
+
+        if (cnt2 == 0) {
+            //flashCursor(rcursor, "flashTogether");
+            c1.triggerAttackRelease(chord[0], "16n");
+            c2.triggerAttackRelease(chord[1], "16n");
+            c3.triggerAttackRelease(chord[2], "16n");
+            c4.triggerAttackRelease(chord[3], "16n");
         }
-        if (cnt2%(outFactor*pieIn.sub)==0){
-            s2.triggerAttackRelease("C1", "16n");
+
+        
+        else if (cnt2%(inFactor*pieOut.sub)==0){
+            s1.triggerAttackRelease(chord[1], "16n");
+        }
+        else if (cnt2%(outFactor*pieIn.sub)==0){
+            s2.triggerAttackRelease(chord[2], "16n");
 
         }
 
@@ -294,17 +307,11 @@ elementList.forEach(function (element) {
 });
 
 //CURSOR ANIMATION
-/*
-var rctx = rcursor.getContext("2d");
-//cursor in polyrhythm
-rctx.beginPath();
-rctx.moveTo(210 + 100/Math.sqrt(3), 0);
-rctx.lineTo(210, 100);
-rctx.lineTo(210 - 100/Math.sqrt(3), 0 );
-rctx.closePath();
-rctx.lineWidth =2;
-rctx.strokeStyle = "white";
-rctx.stroke();*/
+function flashCursor(element, animation){
+    element.classList.remove(element.classList[1]);
+    void element.offsetWidth;
+    element.classList.add(animation);
+};
 
 
 /////
@@ -347,8 +354,11 @@ document.getElementById("togglebtn").onclick = function () {
     }
 };
 
+
 document.getElementById("backbtn").onclick = function () {
     // SSET THE BPM TO SLOW
+    bpm1.checked = false;
+    chord = chord1;
     polyrhythmLoop.stop();
     //polyrhythmLoop.dispose();
     Tone.Transport.stop();
@@ -431,18 +441,20 @@ var backEaseOut = makeEaseOut(back);
 
 //BPM POLYRHYTHM
 var bpm1 = document.getElementById("tempo_choose");
+var chord1 = ['A2', 'C3', 'E3', 'G3'];
+var chord2 = ['C3', 'E3', 'G3', 'B3'];
+var chord = chord1;
 
 function bpmChange(toggle, input) {
     if (toggle.checked == true) {
         console.log("fast tempo");
         Tone.Transport.bpm.value = 120 * Math.floor(input.value);
-
-
+        chord = chord2;
     }
     else {
         console.log("slow tempo");
         Tone.Transport.bpm.value = 80 * Math.floor(input.value);
-
+        chord = chord1;
     }
 };
 
@@ -488,12 +500,3 @@ coset_toggle.onclick = function () {
 
 };
 
-/*if(toggle == true){
-    if(cosetBeats[cnt1]) {
-          //kick.triggerAttackRelease("C1", "16n");
-        Tone.Draw.schedule(
-          function () {
-         pieCos.animate({timing: backEaseOut, duration: 300})
-         }, time);
-            }
-        }*/

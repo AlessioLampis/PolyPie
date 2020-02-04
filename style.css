@@ -641,27 +641,31 @@ input:checked + .slider:before {
 .cursor{
   width: 0;
   height: 0;
-  margin-left: 190px;
+  margin-left: 200px;
   border-style: solid;
-  border-width: 95.3px 55px 0 55px;
+  border-width: 90px 41px 0 41px;
   border-color: black transparent transparent transparent;
 }
+.flashBlank{
+  border-color: black transparent transparent transparent;
+}
+
 .flashHost{
-  border-color: #9C5400 transparent transparent transparent;
-  -webkit-animation: flash 50ms ease-out ;
-  animation: flash 50ms ease-out ;
+  border-color: #371E00 transparent transparent transparent;
+  -webkit-animation: flash 200ms ease-out forwards;
+  animation: flash 200ms ease-out forwards;
 }
 
 .flashGuest{
-  border-color: #9C2100 transparent transparent transparent;
-  -webkit-animation: flash 50ms ease-out ;
-  animation: flash 50ms ease-out ;
+  border-color: #370C00 transparent transparent transparent;
+  -webkit-animation: flash 200ms ease-out forwards;
+  animation: flash 200ms ease-out forwards;
 }
 
 .flashTogether{
   border-color: white transparent transparent transparent;
-  -webkit-animation: flash 50ms ease-out ;
-  animation: flash 50ms ease-out ;
+  -webkit-animation: flash 200ms ease-out forwards;
+  animation: flash 200ms ease-out forwards ;
 }
 
 /* ANIMATIONS */
