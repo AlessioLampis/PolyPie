@@ -341,6 +341,7 @@ document.documentElement.addEventListener('mousedown', function () {
 });
 
 document.getElementById("startbtn").onclick = function () {
+    document.querySelector("#togglebtn").textContent = "Stop";
     Tone.Transport.cancel();
     start = performance.now();
     cnt1 = 0;
@@ -383,24 +384,15 @@ document.getElementById("backbtn").onclick = function () {
     cnt1 = 0;
     largePie.resetTheta();
     smallPie.resetTheta();
-    ShowPage(0);
+    
 
-
-    if (document.querySelector("#togglebtn").textContent == "Stop") {
-        document.querySelector("#togglebtn").textContent = "Start";
-        //polyrhythmLoop.start();
-        ShowPage(0);
-        Tone.Transport.stop()
-    }
-    else {
-        ShowPage(0);
-    }
 };
 
 //POLYMETER PAGE
 document.getElementById("startbtn1").onclick = function () {
+    document.querySelector("#togglebtn1").textContent = "Stop";
     Tone.Transport.cancel();
-    Tone.Transport.bpm.value = 100;
+    Tone.Transport.bpm.value = 80;
     start = performance.now();
     cnt2 = 0;
     largeMeter.resetTheta();
@@ -410,10 +402,10 @@ document.getElementById("startbtn1").onclick = function () {
     largeMeter.setDenom(hd);
     smallMeter.setSub(gn);
     smallMeter.setDenom(gd);
-    //cosetMeter.setSub(cosetChoose.checked? hn: gn);
-    //cosetMeter.setDenom(cosetChoose.checked? hd: gd);
-    cosetMeter.setSub(gn);
-    cosetMeter.setDenom(gd);
+    cosetMeter.setSub(cosetChoose.checked? hn: gn);
+    cosetMeter.setDenom(cosetChoose.checked? hd: gd);
+    //cosetMeter.setSub(gn);
+    //cosetMeter.setDenom(gd);
     largeMeter.innerPie = smallMeter;
     
     polymeterLoop = new Tone.Loop(meterLoopCallback(largeMeter, smallMeter, cosetMeter), denom + "n");
@@ -440,21 +432,14 @@ document.getElementById("togglebtn1").onclick = function () {
 
 
 document.getElementById("backbtn1").onclick = function () {
-
+    bpm2.checked = false;
+    chord = chord1;
+    polymeterLoop.stop();
     Tone.Transport.stop();
     canvas2.getContext('2d').clearRect(0, 0, canvas2.width, canvas2.height);
-    
+    polymeterShift = 0;
     ShowPage(1);
 
-    if (document.querySelector("#togglebtn1").textContent == "Stop") {
-
-        polymeterLoop.start();
-        ShowPage(1);
-        Tone.Transport.stop()
-    }
-    else {
-        ShowPage(1);
-    }
 
 
 };
