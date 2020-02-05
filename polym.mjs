@@ -115,7 +115,6 @@ document.querySelector(".minus3").onclick = function () {
   hn = Math.floor(host_num.value);
   hd = Math.floor(host_denom.value);
 };
-//}
 
 document.querySelector(".plus3").onclick = function () {
   if (host_num.value == 8) {
@@ -156,8 +155,6 @@ document.querySelector(".minus4").onclick = function () {
   hn = Math.floor(host_num.value);
   hd = Math.floor(host_denom.value);
 };
-//}
-
 
 document.querySelector(".plus4").onclick = function () {
   if (host_denom.value == 4) {
@@ -231,4 +228,4 @@ function measure_denom(guest_denom, host_denom) {
 
 
 
-export { gn, gd, hn, hd, num, denom};
+export { gn, gd, hn, hd, num, denom}

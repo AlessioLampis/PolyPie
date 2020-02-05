@@ -341,9 +341,10 @@ function flashCursor(element, animation){
 ////
 
 
-/*document.documentElement.addEventListener('mousedown', function () {
+document.documentElement.addEventListener('mousedown', function () {
     if (Tone.context.state !== 'running') Tone.context.resume();
-});*/
+});
+
 document.getElementById("startbtn").onclick = function () {
     document.querySelector("#togglebtn").textContent = "Stop";
     Tone.Transport.cancel();
@@ -449,26 +450,6 @@ document.getElementById("backbtn1").onclick = function () {
 
 };
 
-//POLYMETER PAGE
-document.getElementById("startbtn1").onclick = function () {
-    start = performance.now();
-    cnt2 = 0;
-    largeMeter.innerPie = smallMeter;
-    polymeterLoop.callback = createLoop(largeMeter, smallMeter);
-    Tone.start();
-    ShowPage(4);
-    Tone.Transport.start("+1");
-    end = performance.now();
-    console.log("Call to do the whole function took " + (end - start) + " milliseconds.");
-  };
-  
-  document.getElementById("backbtn1").onclick = function () {
-  
-    Tone.Transport.stop();
-    ShowPage(1);
-  
-
-  };
 
 
 
