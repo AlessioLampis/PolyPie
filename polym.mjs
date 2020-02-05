@@ -4,7 +4,19 @@ var guest_denom = document.getElementById("guest_denom");
 var host_num = document.getElementById("host_num");
 var host_denom = document.getElementById("host_denom");
 var n1, n2, d1, d2, k1, k2, nk1, nk2, d, n;
-var num, denom;
+var num = 1;
+var denom = 4;
+
+var gn = Math.floor(guest_num.value);
+var gd = Math.floor(guest_denom.value);
+var hn = Math.floor(host_num.value);
+var hd = Math.floor(host_denom.value);
+
+/*guest_num.value = num;
+guest_denom.value = denom;
+
+host_num.value = num;
+host_denom.value = denom;*/
 
 //POLYMETER Tatum
 //guest_num.onchange = () => {
@@ -19,6 +31,10 @@ document.querySelector(".minus1").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 
 document.querySelector(".plus1").onclick = function () {
@@ -32,6 +48,10 @@ document.querySelector(".plus1").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 //}
 
@@ -51,6 +71,10 @@ document.querySelector(".minus2").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 
 document.querySelector(".plus2").onclick = function () {
@@ -67,6 +91,10 @@ document.querySelector(".plus2").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 //}
 
@@ -82,7 +110,12 @@ document.querySelector(".minus3").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
+//}
 
 document.querySelector(".plus3").onclick = function () {
   if (host_num.value == 8) {
@@ -95,6 +128,10 @@ document.querySelector(".plus3").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 //}
 
@@ -114,7 +151,13 @@ document.querySelector(".minus4").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
+//}
+
 
 document.querySelector(".plus4").onclick = function () {
   if (host_denom.value == 4) {
@@ -130,6 +173,10 @@ document.querySelector(".plus4").onclick = function () {
   denom = Math.floor(measure_denom(guest_denom.value, host_denom.value));
   document.getElementsByClassName("num")[0].innerHTML = num;
   document.getElementsByClassName("denom")[0].innerHTML = denom;
+  gn = Math.floor(guest_num.value);
+  gd = Math.floor(guest_denom.value);
+  hn = Math.floor(host_num.value);
+  hd = Math.floor(host_denom.value);
 };
 //}
 
@@ -184,4 +231,4 @@ function measure_denom(guest_denom, host_denom) {
 
 
 
-export { guest_num, guest_denom, host_num, host_denom, measure_num, measure_denom }
+export { gn, gd, hn, hd, num, denom};

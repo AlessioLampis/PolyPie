@@ -1,11 +1,10 @@
 var guest1 = document.getElementById("guest1");
 var host1 = document.getElementById("host1");
-
 var sub = 1; //number of tatum (subdivisions)
 
 var guestBeats = [];
 var hostBeats = [];
-
+var cosetBeats = [];
 
 
 
@@ -17,9 +16,9 @@ function listenGuest(guest) { //Guest value input
       guest.value
     );
   
-    if (guest.value > 8) {
-      guest.value = 8;
-      alert("Guest value can't exceed 8");
+    if (guest.value > 32) {
+      guest.value = 32;
+      //alert("Guest value can't exceed 8");
     }
     if (guest.value == 0) {
       guest.value = 1;
@@ -38,9 +37,9 @@ function listenGuest(guest) { //Guest value input
       host.value
     );
   
-    if (host.value > 8) {
-      host.value = 8;
-      alert("Host value can't exceed 8");
+    if (host.value > 32) {
+      host.value = 32;
+      //alert("Host value can't exceed 8");
     }
     if (host.value == 0) {
       host.value = 1;
@@ -52,12 +51,14 @@ function listenGuest(guest) { //Guest value input
     tatum_calculation();
   };
 
+
+
   function tatum_calculation() { //Only for Cross Rhythm
     sub = lcm(
       Math.floor(host1.value),
       Math.floor(guest1.value)
     );
-    
+    document.getElementById("result").innerHTML = sub;
   };
 
   
@@ -102,4 +103,26 @@ function calculate_pie() {
   
   };
 
-  export{calculate_pie,  hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost }
+  function calculateCoset(toggle, n){
+  cosetBeats = [];
+  if(toggle){
+    for(var x = 0; x < sub; x ++){
+      x%guest1.value == 0 ? cosetBeats.push(true) : cosetBeats.push(false);
+    };
+    for(var i = 0; i < n ; i++){
+      cosetBeats.unshift(cosetBeats[cosetBeats["length"] -1]);
+      cosetBeats.pop();
+    }
+  }
+  else{
+    for(var y = 0; y < sub; y ++){
+      y%host1.value == 0 ? cosetBeats.push(true) : cosetBeats.push(false);
+    };
+    for(var j = 0; j < n; j++){
+      cosetBeats.unshift(cosetBeats[cosetBeats["length"] -1]);
+      cosetBeats.pop();
+    }
+  }
+  }
+
+  export{calculate_pie,  hostBeats, guestBeats, sub, guest1, host1, listenGuest, listenHost, calculateCoset, cosetBeats }

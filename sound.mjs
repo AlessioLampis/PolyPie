@@ -1,5 +1,59 @@
 var kick = new Tone.MembraneSynth();
 var hat = new Tone.MetalSynth();
+var gain = new Tone.Gain(1).toMaster();
+var s1 = new Tone.Synth({
+    oscillator : {
+    type : 'fmsine'
+    } ,
+    envelope : {
+    attack : 0.0005 ,
+    decay : 0.01 ,
+    sustain : 0.3 ,
+    release : 0.1
+    }
+}).toMaster();
+var s2 = new Tone.Synth({
+    oscillator : {
+    type : 'fmsine'
+    } ,
+    envelope : {
+    attack : 0.0005 ,
+    decay : 0.01 ,
+    sustain : 0.3 ,
+    release : 0.1
+    }
+}).toMaster();
+var s3 = new Tone.Synth({
+    oscillator : {
+    type : 'fmsine'
+    } ,
+    envelope : {
+    attack : 0.0005 ,
+    decay : 0.01 ,
+    sustain : 0.3 ,
+    release : 0.1
+    }
+}).toMaster();
+var c1 = new Tone.AMSynth({
+    oscillator : {
+        type : 'fmsine'
+        } 
+}).toMaster();
+var c2 = new Tone.AMSynth({
+    oscillator : {
+        type : 'fmsine'
+        } 
+}).toMaster();
+var c3 = new Tone.AMSynth({
+    oscillator : {
+        type : 'fmsine'
+        } 
+}).toMaster();
+var c4 = new Tone.AMSynth({
+    oscillator : {
+        type : 'fmsine'
+        } 
+}).toMaster();
 
 var closedHiHat = new Tone.NoiseSynth({
     volume : -10,
@@ -61,4 +115,4 @@ hat.chain(gain, reverb, comp);
 //Tone.context.latencyHint = 'fastest';
 //Tone.context.lookAhead = 0;
 
-export{kick, openHiHat, closedHiHat, hat}
+export{ s1, s2, s3, c1, c2, c3, c4}
