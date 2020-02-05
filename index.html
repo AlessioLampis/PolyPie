@@ -62,7 +62,7 @@
       <span class="logo">PolyPie</span>
       <div style="overflow:auto;">
         <div style="float:left;">
-          <button type="button" id="LinBtn" class="LinBtn">Cross Rhythm</button>
+          <button type="button" id="LinBtn" class="LinBtn">Polyrhythm </button>
           <button type="button" id="IrrBtn" class="IrrBtn">Polymeter</button>
           <button type="button" id="ClvBtn" class="ClvBtn">Info </button>
         </div>
@@ -70,12 +70,12 @@
 
 
 
-      <div id="snackbarGuest">the guest is the rhythm the guest is the rhythm the guest is the rhythm the guest is the rhythm </div>
-      <div id="snackbarHost">this is the host the guest is the rhythm the guest is the rhythm the guest is the rhythm the guest is the rhythm </div>
-      <div id="snackbarTatum">this is the tatum the guest is the rhythm the guest is the rhythm the guest is the rhythm the guest is the rhythm </div>
+      <div id="snackbarGuest">Fill the guest box to define the guest rhythm. This conflicts with the main rhythm.</div>
+      <div id="snackbarHost"> Fill the host box to define the host rhythm. This is the underlying pulse.</div>
+      
       <div class="Quantity">
         <label>Guest</label>
-        <input type="number" min="1" max="36" id="guest1" step="1" value="1" pattern="[1-8]*">
+        <input type="number" min="1" max="36" id="guest1" step="1" value="3" pattern="[1-8]*">
         </input>
       </div>
 
@@ -83,10 +83,9 @@
 
       <div class="Quantity">
         <label>Host</label>
-        <input type="number" min="1" max="8" id="host1" step="1" value="1" pattern="[1-8]*"></input>
+        <input type="number" min="1" max="8" id="host1" step="1" value="4" pattern="[1-8]*"></input>
       </div>
-      <p>tatum value:</p>
-      <p id="result">1</p>
+      
       <p id="startbtn">Start</p>
 
 
@@ -97,16 +96,18 @@
       <span class="logo">PolyPie</span>
       <div style="overflow:auto;">
         <div style="float:left;">
-          <button type="button" id="LinBtn" class="LinBtn">Cross Rhythm</button>
+          <button type="button" id="LinBtn" class="LinBtn">Polyrhythm </button>
           <button type="button" id="IrrBtn" class="IrrBtn">Polymeter</button>
           <button type="button" id="ClvBtn" class="ClvBtn">Info </button>
         </div>
       </div>
 
       
-
+      <div id="snackbarMeter1">Change meter 1 values with "+" and "-" buttons. This defines the first meter signature.</div>
+      <div id="snackbarMeter2">Change meter 2 values with "+" and "-" buttons. This defines the second meter signature.</div>
+      <div id="snackbarWhole">This is how long it takes for the two meters to meet again.</div>
       <div class="Quantity pol1">
-        <label>Guest</label>
+        <label>Meter 1</label>
         <div class="plmn1">
           <span class = "pl_mn plus1" style = "cursor: pointer"> + </span>
           <span class = "pl_mn minus1" style = "cursor: pointer"> - </span>
@@ -123,7 +124,7 @@
       <div class="semicolon">:</div>
 
       <div class="Quantity pol2">
-        <label>Host</label>
+        <label>Meter 2</label>
         <div class="plmn3">
           <span class = "pl_mn plus3" style = "cursor: pointer"> + </span>
           <span class = "pl_mn minus3" style = "cursor: pointer"> - </span>
@@ -141,7 +142,7 @@
       <div class='wholemeasure'>
         <p class="result2 num">1</p>
         <label>/</label>
-        <p class="result2 denom">1</p>
+        <p class="result2 denom">4</p>
       </div>
       <p id="startbtn1">Start</p>
       
@@ -152,41 +153,37 @@
       <span class="logo">PolyPie</span>
       <div style="overflow:auto;">
         <div style="float:left;">
-          <button type="button" id="LinBtn" class="LinBtn">Cross Rhythm</button>
+          <button type="button" id="LinBtn" class="LinBtn">Polyrhythm </button>
           <button type="button" id="IrrBtn" class="IrrBtn">Polymeter</button>
           <button type="button" id="ClvBtn" class="ClvBtn">Info </button>
         </div>
 
-        <div class="info">
-          <p><b>PolyPie</b> is a simple web app that lets you easily set up and play polyrhythms and polymeters,
-             while visualizing them on sliced circles, which we call <b>Pies</b>. The Pies rotate in sync with 
-             the sounds, and they are designed to help you understand what it is exactly that you're hearing.
-            Go on and play with it, and if you need some additional information on what does what on this page, you can find it below.</p>
-
-          <h><b>Polyrhythms</b></h>
-          <p>In the Polyrhythms section, you are presented with two number boxes which you can fill in, labeled 
-            <b>Guest</b> and <b>Host</b>. These numbers define the subdivisions of the two rhythms you're going to hear playing
-            at the same time once you press "Start". You can think of them in this way: you have a main rhythm or pulse (the "host")
-            on top of which a different "guest" rhythm is layered, creating a new and interesting pattern.<br>
-            The guest and host patterns have the same duration and different subdivisions; the corresponding Pies
-            (outer and inner, respectively) show the same subdivision, with the first beat highlighted, and rotate a full
-            360° in the same amount of time, but they are divided in slices of different angles, so they play at different rates. After a full loop,
-            anyways, the two pies catch up, and they play the first beat in unison.
-          </p>
-
-          <h><b>Polymeters</b></h>
-
-          <p>In the Polymeter section you can see two pairs of inputs that you can modify with the "+" and "-" buttons 
-            beside each one. These pairs define the time signatures of the two meters that are going to be played simultaneously.
-            Here the Pies will not play a sound on every step, but they will play only once every turn. The duration
-            of a single turn is that of one measure of the corresponding meter.
-          </p>
-          
-        </div>
+        
 
       </div>
 
+      <div class="info">
+        <p><b>PolyPie</b> is a simple web app that lets you easily set up and play polyrhythms and polymeters,
+           while visualizing them on sliced circles, which we call <b>Pies</b>. The Pies rotate in sync with 
+           the sounds, and they are designed to help you understand what it is exactly that you're hearing.
+          Go on and play with it, and if you need some additional information on what does what on this page, you can find it below.</p>
 
+        <h><b>Polyrhythms</b></h>
+        <p>
+         The host and guest Pies
+          (outer and inner, respectively) show the same subdivision, with the first beat highlighted, and rotate a full
+          360° in the same amount of time, but they are divided in slices of different angles, so they play at different rates. After a full loop,
+          anyways, the two pies catch up, and they play the first beat in unison.
+        </p>
+
+        <h><b>Polymeters</b></h>
+
+        <p>
+          Here the Pies will not play a sound on every step, but they will play only once every turn. The duration
+          of a single turn is that of one measure of the corresponding meter.
+        </p>
+        
+      </div>
 
 
     </div>
@@ -207,18 +204,18 @@
         <div class = "cursor flashBlank" id ="cursor"></div>
 
         <canvas width='500px' height='420px' id='myCanvas'></canvas>
-        <div class="controller">
-          <h2>Cross rhythm</h2>
+        <div class="controller rhythmcontroller">
+          <h2>Polyrhythm</h2>
 
-          <p>tempo</p>
+          <p>Tempo</p>
           <div class="coset_selector">
             
-            <div class="slow_tempo">slow</div>
+            <div class="slow_tempo">Slow</div>
             <label class="coset">
               <input id="tempo_choose" type="checkbox" >
               <span class="slider"></span>
             </label>
-            <div class="fast_tempo">fast</div>
+            <div class="fast_tempo">Fast</div>
           </div>
 
 
@@ -244,19 +241,19 @@
             <div class="controller">
               <h2>Polymeter</h2>
     
-              <p>tempo</p>
+              <p>Tempo</p>
               <div class="coset_selector">
                 
-                <div class="slow_tempo">slow</div>
+                <div class="slow_tempo">Slow</div>
                 <label class="coset">
                   <input id="tempo_choose1" type="checkbox" >
                   <span class="slider"></span>
                 </label>
-                <div class="fast_tempo">fast</div>
+                <div class="fast_tempo">Fast</div>
               </div>
     
     
-              <label>shifted pie</label>
+              <label>Shifted pie</label>
               <div class = "coset_selector">
                 
               <div class="coset_off">OFF</div>
@@ -268,7 +265,7 @@
               <div class="coset_on">ON</div>
             </div>
               
-            <label>shift amount</label>
+            <label>Shift amount</label>
               <div class = "coset_selector">
                 
                 
@@ -281,12 +278,12 @@
               <label>shift subdivision</label>
               <div class = "coset_selector">
                 
-                <div class="coset_host">guest</div>
+                <div class="coset_host">Meter 1</div>
               <label class="coset">
                 <input id="coset_chose1" type="checkbox">
                 <span class="slider"></span>
               </label>
-              <div class="coset_guest">host</div>
+              <div class="coset_guest">Meter 2</div>
             </div>
             <p id="backbtn1">Back</p>
             </div>

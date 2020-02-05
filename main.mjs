@@ -286,7 +286,11 @@ selectors.forEach(select_button);
 //HELPER
 var result = document.getElementById("result");
 let helper = true;
-var elementList = [guest1, host1, result];
+var meter1 = document.getElementsByClassName("Quantity pol1")[0];
+var meter2 = document.getElementsByClassName("Quantity pol2")[0];
+var whole = document.getElementsByClassName("meas")[0];
+
+var elementList = [guest1, host1, meter1, meter2, whole];
 
 
 elementList.forEach(function (element) {
@@ -312,17 +316,40 @@ elementList.forEach(function (element) {
             }
             );
         }
-
-        if (element == result) {
+        if (element == meter1) {
             element.addEventListener("mouseover", function () {
-                var x = document.getElementById("snackbarTatum");
+                var x = document.getElementById("snackbarMeter1");
                 x.className = "show";
                 setTimeout(function () {
                     x.className = x.className.replace("show", "");
                 }, 3000);
             }
             );
+        
+    }
+    if (element == meter2) {
+        element.addEventListener("mouseover", function () {
+            var x = document.getElementById("snackbarMeter2");
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
         }
+        );
+    }
+
+    if (element == whole) {
+        element.addEventListener("mouseover", function () {
+            var x = document.getElementById("snackbarWhole");
+            x.className = "show";
+            setTimeout(function () {
+                x.className = x.className.replace("show", "");
+            }, 3000);
+        }
+        );
+    }
+
+     
 
 
     };

@@ -678,6 +678,17 @@ input:checked + .slider:before {
   transition: all 250ms linear;
 }
 
+
+.info{
+  position: relative;
+  width: 490px;
+  text-align: center;
+}
+
+.rhythmcontroller{
+  bottom: 30%;
+}
+
 /*CURSOR*/
 .cursor{
   width: 0;
@@ -841,26 +852,58 @@ canvas {
 #snackbarGuest {
   visibility: hidden;
   min-width: 20px;
-  margin-left: 80px;
+  margin-left: 10px;
   background-color: black; 
   color:#dce1d5;
   text-align: center;
   border-radius: 2px;
-  padding: 16px;
+  padding: 6px;
   position: absolute;
   z-index: 1;
-  left: 50%;
-  bottom: 33vh;
+  width: 100px;
+  bottom: 22vh;
   font-size: 12px;
 }
 
-#snackbarGuest.show {
+#snackbarMeter1 {
+  visibility: hidden;
+  min-width: 20px;
+  margin-left: 10px;
+  background-color: black; 
+  color:#dce1d5;
+  text-align: center;
+  border-radius: 2px;
+  padding: 6px;
+  position: absolute;
+  z-index: 1;
+  width: 100px;
+  bottom: 57vh;
+  font-size: 12px;
+}
+
+#snackbarWhole {
+  visibility: hidden;
+  min-width: 20px;
+  margin-left: 10px;
+  background-color: black; 
+  color:#dce1d5;
+  text-align: center;
+  border-radius: 2px;
+  padding: 6px;
+  position: absolute;
+  z-index: 1;
+  width: 100px;
+  bottom: 10vh;
+  font-size: 12px;
+}
+
+#snackbarGuest.show, #snackbarMeter1.show, #snackbarMeter2.show , #snackbarWhole.show{
   visibility: visible;
   -webkit-animation: snackIn 0.5s, snackOut 0.5s 2.5s;
   animation: snackIn 0.5s, snackOut 0.5s 2.5s;
 }
 
-#snackbarHost {
+#snackbarHost, #snackbarMeter2 {
   visibility: hidden;
   min-width: 20px;
   margin-left: 80px;
