@@ -480,8 +480,8 @@ var backEaseOut = makeEaseOut(back);
 
 var bpm1 = document.getElementById("tempo_choose");
 var bpm2 = document.getElementById("tempo_choose1");
-var chord1 = ['A2', 'C3', 'E3', 'G3'];
-var chord2 = ['C3', 'E3', 'G3', 'B3'];
+var chord1 = ['A1', 'C3', 'E3', 'G3'];
+var chord2 = ['C2', 'E3', 'G3', 'B3'];
 var chord = chord1;
 
 function bpmChange(toggle, input) {

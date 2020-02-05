@@ -156,6 +156,28 @@
           <button type="button" id="IrrBtn" class="IrrBtn">Polymeter</button>
           <button type="button" id="ClvBtn" class="ClvBtn">Info </button>
         </div>
+
+        <div class="info">
+          <p><b>PolyPie</b> is a simple web app that lets you easily set up and play polyrhythms and polymeters,
+             while visualizing them on sliced circles, which we call <b>Pies</b>. The Pies rotate in sync with 
+             the sounds, and they are designed to help you understand what it is exactly that you're hearing.
+            Go on and play with it, and if you need some additional information on what does what on this page, you can find it below.</p>
+
+          <h><b>Polyrhythms</b></h>
+          <p>In the Polyrhythms section, you are presented with two number boxes which you can fill in, labeled 
+            <b>Guest</b> and <b>Host</b>. These numbers define the subdivisions of the two rhythms you're going to hear playing
+            at the same time once you press "Start". You can think of them in this way: you have a main rhythm or pulse (the "host")
+            on top of which a different "guest" rhythm is layered, creating a new and interesting pattern.<br>
+            The guest and host patterns have the same duration and different subdivisions; the corresponding Pies
+            (outer and inner, respectively) show the same subdivision, with the first beat highlighted, and rotate a full
+            360° in the same amount of time, but they are divided in slices of different angles, so they play at different rates. After a full loop,
+            anyways, the two pies catch up, and they play the first beat in unison.
+          </p>
+
+          <h><b>Polymeters</b></h>
+          
+        </div>
+
       </div>
 
 
@@ -228,7 +250,7 @@
               </div>
     
     
-              <label>coset</label>
+              <label>shifted pie</label>
               <div class = "coset_selector">
                 
               <div class="coset_off">OFF</div>
@@ -240,7 +262,7 @@
               <div class="coset_on">ON</div>
             </div>
               
-            <label>coset shift</label>
+            <label>shift amount</label>
               <div class = "coset_selector">
                 
                 
@@ -250,7 +272,7 @@
                 <div class="add_coset" id = 'addCoset1'>+</div>
               </div>
     
-              <label>coset division</label>
+              <label>shift subdivision</label>
               <div class = "coset_selector">
                 
                 <div class="coset_host">guest</div>
