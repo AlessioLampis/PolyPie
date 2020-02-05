@@ -8,6 +8,7 @@ body {
   height: 100%;
   overflow: hidden;
   margin: auto;
+  
 }
 /*BACKGROUND*/
 .cube {
@@ -114,6 +115,7 @@ svg path {
 /*OVERALL LAYOUT OF PAGES*/
 #pages {
   z-index: 1;
+  
 }
 
 .page {
@@ -126,6 +128,8 @@ svg path {
   font-size: 14px;
   text-align: center;
   margin-top : 10%;
+  zoom:80%;
+ 
 }
 .page:after {
   position: absolute;
@@ -216,6 +220,7 @@ svg path {
 }
 
 /*FIRST PAGE*/
+
 .firstpage {
   position: relative;
   margin-top: 30%;
@@ -301,13 +306,14 @@ svg path {
 
 }
 
+
+
+/* CROSS RHYTHM*/
 .page4{
   width: 800px;
   float: left; 
-
+ margin-top : 10%;
 }
-
-/* CROSS RHYTHM*/
 
 #startbtn{
   position: relative;
@@ -324,13 +330,14 @@ svg path {
   cursor: pointer; 
 }
 #backbtn{
+  margin: 25px 0px;
   background-color: #dce1d5;
   color: black;
   font-size: 16px;
   cursor: pointer; 
   z-index: 2;
   width: 90px;
-margin-left:40%;
+margin-left:35%;
 }
 
 #backbtn:hover{
@@ -341,6 +348,55 @@ margin-left:40%;
   text-decoration: none;
   transition: all 250ms linear; 
 }
+
+
+
+
+.PolymContainer{
+  margin: 25px 0px;
+  position: relative;
+  flex: auto;
+  text-align : left;
+}
+
+.controller{
+  margin: 25px 0px;
+  position: absolute;
+  text-align: center;
+  left: 500px;
+  width: 250px;
+  bottom: 10%;
+  border: thin solid white;
+
+}
+
+.coset_selector{
+  margin: 25px 0px;
+  display: inline-block;
+  display: flex;
+  flex-direction: row;
+}
+
+.add_coset{
+  font-size: 35px ;
+  border: thin solid white;
+  flex: auto;
+  cursor: pointer;
+}
+
+.remove_coset{
+  font-size: 35px;
+  border: thin solid white;
+  flex: auto;
+  cursor: pointer;
+}
+
+.slow_tempo, .fast_tempo,
+.coset_guest, .coset_host, .coset_on, .coset_off
+{
+flex:auto;
+}
+
 .coset{ 
   position: relative; /* change all the element on this line with the justify-content: space-around*/
   display: inline-block;
@@ -348,6 +404,7 @@ margin-left:40%;
   height: 20px;
   margin-left: 0px;
 }
+
 .coset input { 
   opacity: 0;
   width: 0;
@@ -355,33 +412,110 @@ margin-left:40%;
 
 }
 
-.PolymContainer{
-  position: relative;
- flex: auto;
- text-align: left;
+/*POLYMETER PAGE*/
+.pl_mn{
+  font-size: 30px;
+  text-align: center;
 }
 
-
-.bpmpage1{
+.plmn1{
   position: relative;
-  left: -300px;
+  left: -30%;
+  top: 30%;
 }
 
-.bpmpage1 input {
+.plmn2{
+  position: relative;
+  left: 30%;
+  top: 80%;
+}
+
+.plmn3{
+  position: relative;
+  left: -30%;
+  top: 30%;
+}
+
+.plmn4{
+  position: relative;
+  left: 30%;
+  top: 30%;
+}
+
+.slash{
+  font-size: 60px;
+  font-weight: 100px;
+}
+
+.result2{
+  display: inline-block;
+  color: #dce1d5;
+  border-radius: 2px;
+  background: transparent;
+  border: solid 0px #b7b7b7;
   font-family: "Source Code Pro", monospace;
+  font-size: 20px;
+  font-weight: 20px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 0px 0 2px;
+  margin: 0;
+  text-align: center;
+  width: 30px;
 }
 
-#coset_switch{
+.page5 {
+  width: 800px;
+  float: left; 
+}
+#startbtn1{
   position: relative;
-  margin-left: 300px;
-  bottom: 20px;
+  background-color: #dce1d5;
+  color: black;
+  padding: 3px 10px;
+  font-family: "Source Code Pro", monospace;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  margin: 0px 0px 5px;
+  font-size: 16px;
+  float: center;
+  cursor: pointer; 
 }
 
-#coset_switch input {
-  font-family: "Source Code Pro", monospace;
+#startbtn1:hover{
+  background: black;
+  border: 1px solid black;
+  box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
+  color: #dce1d5;
+  text-decoration: none;
+  transition: all 250ms linear; 
 }
+
+#backbtn1{
+  margin: 25px 0px;
+  background-color: #dce1d5;
+  color: black;
+  font-size: 16px;
+  cursor: pointer; 
+  z-index: 2;
+  width: 90px;
+margin-left:35%;
+}
+
+#backbtn1:hover{
+  background: black;
+  border: 1px solid black;
+  box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
+  color: #dce1d5;
+  text-decoration: none;
+  transition: all 250ms linear; 
+}
+
+
 
 .slider {
+  flex: auto;
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -406,11 +540,11 @@ margin-left:40%;
 }
 
 input:checked + .slider {
-  background-color: #001823;
+  background-color: #ebebeb;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #001823;
+  box-shadow: 0 0 1px #ebebeb;
 }
 
 input:checked + .slider:before {
@@ -434,6 +568,11 @@ input:checked + .slider:before {
   line-height: 3;
 }
 
+.second{
+  font-size: 20px;
+}
+
+
 #togglebtn{
   position: relative;
   background-color: #dce1d5;
@@ -448,7 +587,32 @@ input:checked + .slider:before {
   float: center;
   cursor: pointer; 
 }
+
+#togglebtn1{
+  position: relative;
+  background-color: #dce1d5;
+  color: black;
+  padding: 3px 10px;
+  font-family: "Source Code Pro", monospace;
+
+  text-align: center;
+  text-decoration: none;
+  margin: 0px 0px 5px;
+  font-size: 16px;
+  float: center;
+  cursor: pointer; 
+}
+
 #togglebtn:hover{
+  background: black;
+  border: 1px solid black;
+  box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
+  color: #dce1d5;
+  text-decoration: none;
+  transition: all 250ms linear; 
+}
+
+#togglebtn1:hover{
   background: black;
   border: 1px solid black;
   box-shadow: 0px 0px 2px #ebebeb, 0px 0px 2px #ebebeb;
@@ -614,9 +778,67 @@ input:checked + .slider:before {
   transition: all 250ms linear;
 }
 
+/*CURSOR*/
+.cursor{
+  width: 0;
+  height: 0;
+  margin-left: 209px;
+  border-style: solid;
+  border-width: 90px 41px 0 41px;
+  border-color: black transparent transparent transparent;
+}
+.flashBlank{
+  border-color: black transparent transparent transparent;
+}
 
+.flashHost{
+  border-color: #371E00 transparent transparent transparent;
+  -webkit-animation: flash 200ms ease-out forwards;
+  animation: flash 200ms ease-out forwards;
+}
+
+.flashGuest{
+  border-color: #370C00 transparent transparent transparent;
+  -webkit-animation: flash 200ms ease-out forwards;
+  animation: flash 200ms ease-out forwards;
+}
+
+.flashCoset{
+  border-color: #9C7100 transparent transparent transparent;
+  -webkit-animation: flash 200ms ease-out forwards;
+  animation: flash 200ms ease-out forwards;
+}
+
+.flashTogether{
+  border-color: white transparent transparent transparent;
+  -webkit-animation: flash 200ms ease-out forwards;
+  animation: flash 200ms ease-out forwards ;
+}
 
 /* ANIMATIONS */
+@-webkit-keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
 @-webkit-keyframes logo {
   from {
     opacity: 0;
@@ -719,16 +941,16 @@ canvas {
 #snackbarGuest {
   visibility: hidden;
   min-width: 20px;
-  margin-left: -225px;
-  background-color: black;
-  color: #dce1d5;
+  margin-left: 80px;
+  background-color: black; 
+  color:#dce1d5;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   left: 50%;
-  bottom: 20%;
+  bottom: 33vh;
   font-size: 12px;
 }
 
@@ -742,15 +964,15 @@ canvas {
   visibility: hidden;
   min-width: 20px;
   margin-left: 80px;
-  background-color: black;
+  background-color: black; 
   color:#dce1d5;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
-  position: fixed;
+  position: absolute;
   z-index: 1;
   left: 50%;
-  bottom: 20%;
+  bottom: 14vh;
   font-size: 12px;
 }
 
@@ -762,17 +984,16 @@ canvas {
 
 #snackbarTatum {
   visibility: hidden;
-  min-width: 20px;
-  margin-left: 80px;
-  background-color: black;
-  color: #dce1d5;
+  max-width: 100px;
+  margin-left: 30px;
+  background-color: black; 
+  color:#dce1d5;
   text-align: center;
   border-radius: 2px;
   padding: 16px;
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  left: 50%;
-  bottom: 40%;
+  bottom: 20vh;
   font-size: 12px;
 }
 
@@ -802,3 +1023,4 @@ canvas {
   from { opacity: 1;}
   to { opacity: 0;}
 }
+
