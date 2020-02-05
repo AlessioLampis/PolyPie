@@ -41,7 +41,7 @@ let Btn = document.getElementsByClassName("firstbtn");
 //SOUNDS: LOOP
 var cnt1;
 var cnt2;
-var coset = false;
+
 
 
 listenGuest(guest1);
@@ -51,7 +51,7 @@ var smallPie = new PolyrhythmPie(200 / Math.sqrt(1.62), guest1.value, 1, canvas)
 var largePie = new PolyrhythmPie(200, host1.value, 0, canvas);
 var cosetPie = new PolyrhythmPie(200 / Math.sqrt(3.24), gn, 2, canvas);
 
-var polyrhythmLoop = new Tone.Loop(rhythmLoopCallback(largePie, smallPie, cosetPie, coset), "4n"); // the coset parameters are useless for now
+var polyrhythmLoop = new Tone.Loop(rhythmLoopCallback(largePie, smallPie, cosetPie), "4n"); // the coset parameters are useless for now
 
 var smallMeter = new PolyrhythmPie(200 / Math.sqrt(1.62), gn, 1, canvas2);
 var largeMeter = new PolyrhythmPie(200, hn, 0, canvas2);
@@ -535,25 +535,7 @@ document.getElementById('addCoset1').onclick = function (){
     }
 }
 
-function toggle_coset() {
-    if (coset_toggle.checked == true) {
-        coset = !coset;
-        console.log("coset " + coset);
 
-
-    }
-    else {
-        coset = !coset;
-        smallerPie = new PolyrhythmPie(200 / Math.sqrt(3.24), host1.value, 2, canvas);
-        smallerPie.setSub(host1.value);
-        smallPie.innerPie = smallerPie;
-        console.log("coset " + coset);
-        calculateCoset(false, 1);
-        console.log("guest " + hostBeats);
-        console.log("host " + guestBeats);
-        console.log("coset " + cosetBeats);
-    }
-};
 
 
 
