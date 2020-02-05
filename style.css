@@ -8,6 +8,7 @@ body {
   height: 100%;
   overflow: hidden;
   margin: auto;
+  
 }
 /*BACKGROUND*/
 .cube {
@@ -114,6 +115,7 @@ svg path {
 /*OVERALL LAYOUT OF PAGES*/
 #pages {
   z-index: 1;
+  
 }
 
 .page {
@@ -126,6 +128,8 @@ svg path {
   font-size: 14px;
   text-align: center;
   margin-top : 10%;
+  zoom:80%;
+ 
 }
 .page:after {
   position: absolute;
@@ -678,7 +682,7 @@ input:checked + .slider:before {
 .cursor{
   width: 0;
   height: 0;
-  margin-left: 200px;
+  margin-left: 209px;
   border-style: solid;
   border-width: 90px 41px 0 41px;
   border-color: black transparent transparent transparent;
@@ -695,6 +699,12 @@ input:checked + .slider:before {
 
 .flashGuest{
   border-color: #370C00 transparent transparent transparent;
+  -webkit-animation: flash 200ms ease-out forwards;
+  animation: flash 200ms ease-out forwards;
+}
+
+.flashCoset{
+  border-color: #9C7100 transparent transparent transparent;
   -webkit-animation: flash 200ms ease-out forwards;
   animation: flash 200ms ease-out forwards;
 }
@@ -913,3 +923,4 @@ canvas {
   from { opacity: 1;}
   to { opacity: 0;}
 }
+

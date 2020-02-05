@@ -85,10 +85,10 @@ function rhythmLoopCallback(pieOut, pieIn, smallerPie) {
     return function (time) {
         if (cnt1 == 0) {
             flashCursor(rcursor, "flashTogether");
-            c1.triggerAttackRelease(chord[0], "4n");
-            c2.triggerAttackRelease(chord[1], "4n");
-            c3.triggerAttackRelease(chord[2], "4n");
-            c4.triggerAttackRelease(chord[3], "4n");
+            c1.triggerAttackRelease(chord[0], "8n");
+            c2.triggerAttackRelease(chord[1], "8n");
+            c3.triggerAttackRelease(chord[2], "8n");
+            c4.triggerAttackRelease(chord[3], "8n");
             Tone.Draw.schedule(
                 function () {
                     pieIn.animate({
@@ -146,7 +146,7 @@ function meterLoopCallback(pieOut, pieIn, pieCos) {
         //s3.triggerAttackRelease(chord[2], "64n");
 
         if (cnt2 == 0) {
-            //flashCursor(rcursor, "flashTogether");
+            flashCursor(mcursor, "flashTogether");
             c1.triggerAttackRelease(chord[0], "16n");
             c2.triggerAttackRelease(chord[1], "16n");
             c3.triggerAttackRelease(chord[2], "16n");
@@ -155,17 +155,21 @@ function meterLoopCallback(pieOut, pieIn, pieCos) {
 
         
         else if (cnt2%(outFactor*pieOut.sub)==0){
+            flashCursor(mcursor, "flashHost");
             s1.triggerAttackRelease(chord[0], "16n");   //HOST
         }
         else if (cnt2%(inFactor*pieIn.sub)==0){
+            flashCursor(mcursor, "flashGuest");
             s2.triggerAttackRelease(chord[2], "16n");   //GUEST
         }
 
         if(setCoset && cnt2%(inFactor*pieIn.sub) == polymeterShift*inFactor && cosetOnOff.checked){
+            flashCursor(mcursor, "flashCoset");
             s3.triggerAttackRelease(chord[1], "16n");       //PLAYS WITH THE GUEST
         }
 
         if(!setCoset && cnt2%(outFactor*pieOut.sub) == polymeterShift*outFactor && cosetOnOff.checked){
+            flashCursor(mcursor, "flashCoset");
             s3.triggerAttackRelease(chord[1], "16n");       //PLAYS WITH THE HOST
         }
 
