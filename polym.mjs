@@ -38,8 +38,8 @@ document.querySelector(".minus1").onclick = function () {
 };
 
 document.querySelector(".plus1").onclick = function () {
-  if (guest_num.value == 8) {
-    guest_num.value = 8;
+  if (guest_num.value == 16) {
+    guest_num.value = 16;
   }
   else {
     guest_num.value = Math.floor(guest_num.value) + 1;
@@ -117,8 +117,8 @@ document.querySelector(".minus3").onclick = function () {
 };
 
 document.querySelector(".plus3").onclick = function () {
-  if (host_num.value == 8) {
-    host_num.value = 8;
+  if (host_num.value == 16) {
+    host_num.value = 16;
   }
   else {
     host_num.value = Math.floor(host_num.value) + 1;
