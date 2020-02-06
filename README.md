@@ -1,8 +1,8 @@
 # PolyPie
  ACTAM Project 2019/2020 developed by Mattia Lercari, Alessio Lampis and Antonio Pappa.
 
- Here the video demonstration: 
- Here the live demo: https://alessiolampis.github.io/PolyPie/
+ Here the video demonstration: https://www.youtube.com/watch?v=BjMBGbvJey8.
+ Here the live demo: https://alessiolampis.github.io/PolyPie/.
 
  ## Intro
 
